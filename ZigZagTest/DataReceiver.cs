@@ -1,7 +1,9 @@
 ﻿using System;
 using System.ComponentModel;
+using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace ZigZagTest
 {
@@ -11,7 +13,7 @@ namespace ZigZagTest
     {
         //dane Receivera
         private BackgroundWorker AsyncReaderThread;
-        public ReceiveLine OnDataReceived;
+        protected ReceiveLine OnDataReceived;
         private bool BreakLoop = false;
 
         //metody do uruchamiania i zakończania Receivera
@@ -42,8 +44,12 @@ namespace ZigZagTest
             BreakLoop = true;
         }
 
+        public void SetOnDataReceived(ReceiveLine OnReceived)
+        {
+            OnDataReceived = OnReceived;
+        }
 
-        //przeciążalne metody implementujące czytanie linii faktycznego Receivera, np. UDP
+        //przeciążalne metody implementujące ścieżki komunikacji faktycznego Receivera, np. UDP
         protected abstract void ReadAsync();           //Oczekiwanie na kolejną linię
         protected abstract void Configure();           //Inicjalizacja
         protected abstract void Cleanup();             //Zakończenie pracy
@@ -57,25 +63,75 @@ namespace ZigZagTest
         private Int16 Port;
         private IPAddress IP;
 
+        public UDPReceiver(Int16 RequestedPort)
+        {
+            IP = IPAddress.Any;
+            Port = RequestedPort;
+        }
+
+        public UDPReceiver(string RequestedIP, Int16 RequestedPort)
+        {
+            IP = IPAddress.Parse(RequestedIP);
+            Port = RequestedPort;
+        }
 
         protected override void Configure()
         {
-            throw new NotImplementedException();
+            UDPManager = new UdpClient(Port);
+            UDPEndpoint = new IPEndPoint(IP, Port);
+            UDPManager.Connect(UDPEndpoint);
         }
 
         protected override void Cleanup()
+        {
+            UDPManager.Close();
+        }
+
+        protected override void ReadAsync()
+        {
+            Byte[] Message = UDPManager.Receive(ref UDPEndpoint);
+            string Line = Encoding.ASCII.GetString(Message);
+            OnDataReceived.Invoke(Line);
+        }
+
+        protected override void ReactToException()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class SerialReceiver : DataReceiver
+    {
+        SerialPort Port;
+
+        public SerialReceiver(string PortName, Int32 BaudRate, Parity Parity, StopBits StopBits, Handshake Handshake)
+        {
+            Port.PortName = PortName;
+            Port.BaudRate = BaudRate;
+            Port.Parity = Parity;
+            Port.StopBits = StopBits;
+            Port.Handshake = Handshake;
+        }        
+
+        protected override void Cleanup()
+        {
+            Port.Close();
+        }
+
+        protected override void Configure()
+        {
+            Port.Open();
+        }
+
+        protected override void ReactToException()
         {
             throw new NotImplementedException();
         }
 
         protected override void ReadAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        protected override void ReactToException()
-        {
-            throw new NotImplementedException();
+            string Line = Port.ReadLine();
+            OnDataReceived.Invoke(Line);
         }
     }
 }
