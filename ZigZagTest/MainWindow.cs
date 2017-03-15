@@ -55,8 +55,37 @@ namespace ZigZagTest
         private void ConnectionType_Changed(object sender, EventArgs e)
         {
             RadioButton Button = (RadioButton)sender;
-            if (Button.Checked) SelectedConnectionType = ConnectionType.UDP;
-            else SelectedConnectionType = ConnectionType.Serial;
+            if (Button.Checked)
+            {
+                if (Button.Equals(Configuration_UDP)) SelectedConnectionType = ConnectionType.UDP;
+                if (Button.Equals(Configuration_Serial)) SelectedConnectionType = ConnectionType.Serial;
+            }
+
+            ConfigurationScreen_UpdateGroups();
+        }
+
+        private void ConfigurationScreen_UpdateGroups()
+        {
+            switch(SelectedConnectionType)
+            {
+                case ConnectionType.UDP:
+                    Group_ConfigureUDP.Enabled = true;
+                    Group_ConfigureSerial.Enabled = false;
+                    Button_Connect.Enabled = true;
+                    break;
+
+                case ConnectionType.Serial:
+                    Group_ConfigureUDP.Enabled = false;
+                    Group_ConfigureSerial.Enabled = true;
+                    Button_Connect.Enabled = true;
+                    break;
+
+                case ConnectionType.None:
+                    Group_ConfigureUDP.Enabled = false;
+                    Group_ConfigureSerial.Enabled = false;
+                    Button_Connect.Enabled = false;
+                    break;
+            }
         }
     }
 }

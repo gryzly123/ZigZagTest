@@ -73,8 +73,15 @@
             this.Button_GenerateRaport = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Button_PerformTest = new System.Windows.Forms.Button();
             this.SerialPortSingleton = new System.IO.Ports.SerialPort(this.components);
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
             this.MainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Group_ConfigureSerial.SuspendLayout();
@@ -86,6 +93,7 @@
             this.tabPage3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -124,6 +132,7 @@
             this.Group_ConfigureSerial.Controls.Add(this.Serial_StopBits);
             this.Group_ConfigureSerial.Controls.Add(this.Serial_ParityCheck);
             this.Group_ConfigureSerial.Controls.Add(this.label1);
+            this.Group_ConfigureSerial.Enabled = false;
             this.Group_ConfigureSerial.Location = new System.Drawing.Point(3, 171);
             this.Group_ConfigureSerial.Name = "Group_ConfigureSerial";
             this.Group_ConfigureSerial.Size = new System.Drawing.Size(301, 163);
@@ -262,6 +271,7 @@
             this.Group_ConfigureUDP.Controls.Add(this.label6);
             this.Group_ConfigureUDP.Controls.Add(this.UDP_Port);
             this.Group_ConfigureUDP.Controls.Add(this.UDP_IP1);
+            this.Group_ConfigureUDP.Enabled = false;
             this.Group_ConfigureUDP.Location = new System.Drawing.Point(3, 82);
             this.Group_ConfigureUDP.Name = "Group_ConfigureUDP";
             this.Group_ConfigureUDP.Size = new System.Drawing.Size(301, 83);
@@ -376,6 +386,7 @@
             // 
             // Button_Connect
             // 
+            this.Button_Connect.Enabled = false;
             this.Button_Connect.Location = new System.Drawing.Point(170, 19);
             this.Button_Connect.Name = "Button_Connect";
             this.Button_Connect.Size = new System.Drawing.Size(125, 40);
@@ -393,6 +404,7 @@
             this.Configuration_Serial.TabStop = true;
             this.Configuration_Serial.Text = "Port szeregowy";
             this.Configuration_Serial.UseVisualStyleBackColor = true;
+            this.Configuration_Serial.CheckedChanged += new System.EventHandler(this.ConnectionType_Changed);
             // 
             // Configuration_UDP
             // 
@@ -527,6 +539,8 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox4);
+            this.tabPage3.Controls.Add(this.button1);
             this.tabPage3.Controls.Add(this.Button_GenerateRaport);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -538,9 +552,9 @@
             // 
             // Button_GenerateRaport
             // 
-            this.Button_GenerateRaport.Location = new System.Drawing.Point(4, 307);
+            this.Button_GenerateRaport.Location = new System.Drawing.Point(157, 307);
             this.Button_GenerateRaport.Name = "Button_GenerateRaport";
-            this.Button_GenerateRaport.Size = new System.Drawing.Size(300, 30);
+            this.Button_GenerateRaport.Size = new System.Drawing.Size(147, 30);
             this.Button_GenerateRaport.TabIndex = 1;
             this.Button_GenerateRaport.Text = "Generuj raport";
             this.Button_GenerateRaport.UseVisualStyleBackColor = true;
@@ -550,7 +564,7 @@
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(301, 298);
+            this.groupBox2.Size = new System.Drawing.Size(301, 239);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Statystyki ostatniej próby";
@@ -560,25 +574,92 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(289, 226);
+            this.dataGridView1.Size = new System.Drawing.Size(289, 214);
             this.dataGridView1.TabIndex = 0;
             // 
-            // Button_PerformTest
+            // button1
             // 
-            this.Button_PerformTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Button_PerformTest.Location = new System.Drawing.Point(12, 384);
-            this.Button_PerformTest.Name = "Button_PerformTest";
-            this.Button_PerformTest.Size = new System.Drawing.Size(315, 55);
-            this.Button_PerformTest.TabIndex = 1;
-            this.Button_PerformTest.Text = "ROZPOCZNIJ PRÓBĘ WĘŻOWĄ";
-            this.Button_PerformTest.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(3, 307);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(147, 30);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Rozpocznij próbę";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label23);
+            this.groupBox4.Controls.Add(this.label24);
+            this.groupBox4.Controls.Add(this.label21);
+            this.groupBox4.Controls.Add(this.label22);
+            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Controls.Add(this.label15);
+            this.groupBox4.Location = new System.Drawing.Point(4, 248);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(294, 53);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Wynik próby:";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 20);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "T:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(30, 20);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(10, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "-";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(128, 20);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(10, 13);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "-";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(105, 20);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(16, 13);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "k:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(221, 20);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(10, 13);
+            this.label23.TabIndex = 5;
+            this.label23.Text = "-";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(198, 20);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(19, 13);
+            this.label24.TabIndex = 4;
+            this.label24.Text = "δc";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(337, 450);
-            this.Controls.Add(this.Button_PerformTest);
+            this.ClientSize = new System.Drawing.Size(337, 394);
             this.Controls.Add(this.MainTabControl);
             this.Name = "MainWindow";
             this.Text = "ZigZag - Próba wężowa";
@@ -597,6 +678,8 @@
             this.tabPage3.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -626,7 +709,6 @@
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.Button Button_GenerateRaport;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button Button_PerformTest;
         private System.IO.Ports.SerialPort SerialPortSingleton;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox UDP_Port;
@@ -649,6 +731,14 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label label15;
     }
 }
 
