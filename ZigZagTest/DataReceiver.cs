@@ -13,8 +13,11 @@ namespace ZigZagTest
     {
         //dane Receivera
         private BackgroundWorker AsyncReaderThread;
-        protected ReceiveLine OnDataReceived;
+        protected static ReceiveLine OnDataReceived = new ReceiveLine(NMEAParser.ParseLine);
         private bool BreakLoop = false;
+        private bool Running = false;
+
+        public bool IsRunning() { return !BreakLoop; }
 
         //metody do uruchamiania i zakończania Receivera
         public void StartReading()
@@ -30,23 +33,20 @@ namespace ZigZagTest
             Configure();
             try
             {
+                Running = true;
                 while (!BreakLoop) ReadAsync();
             }
             catch(Exception E)
             {
                 ReactToException();
             }
+            Running = false;
             Cleanup();
         }
 
         public void StopReading()
         {
             BreakLoop = true;
-        }
-
-        public void SetOnDataReceived(ReceiveLine OnReceived)
-        {
-            OnDataReceived = OnReceived;
         }
 
         //przeciążalne metody implementujące ścieżki komunikacji faktycznego Receivera, np. UDP
@@ -106,9 +106,7 @@ namespace ZigZagTest
 
         public SerialReceiver(string PortName, Int32 BaudRate, Parity Parity, StopBits StopBits, Handshake Handshake)
         {
-            Port.PortName = PortName;
-            Port.BaudRate = BaudRate;
-            Port.Parity = Parity;
+            Port = new SerialPort(PortName, BaudRate, Parity);
             Port.StopBits = StopBits;
             Port.Handshake = Handshake;
         }        

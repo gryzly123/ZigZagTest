@@ -43,6 +43,7 @@
             this.Serial_ParityCheck = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.Group_ConfigureUDP = new System.Windows.Forms.GroupBox();
+            this.UDP_Any = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.UDP_IP4 = new System.Windows.Forms.TextBox();
@@ -70,18 +71,18 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label23 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.Button_GenerateRaport = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.SerialPortSingleton = new System.IO.Ports.SerialPort(this.components);
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.MainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Group_ConfigureSerial.SuspendLayout();
@@ -91,9 +92,9 @@
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -150,7 +151,7 @@
             this.Serial_BPSRate.Location = new System.Drawing.Point(123, 53);
             this.Serial_BPSRate.Name = "Serial_BPSRate";
             this.Serial_BPSRate.Size = new System.Drawing.Size(172, 21);
-            this.Serial_BPSRate.TabIndex = 11;
+            this.Serial_BPSRate.TabIndex = 1;
             this.Serial_BPSRate.Text = "9600";
             // 
             // Serial_PortName
@@ -166,7 +167,7 @@
             this.Serial_PortName.Location = new System.Drawing.Point(123, 26);
             this.Serial_PortName.Name = "Serial_PortName";
             this.Serial_PortName.Size = new System.Drawing.Size(172, 21);
-            this.Serial_PortName.TabIndex = 10;
+            this.Serial_PortName.TabIndex = 0;
             this.Serial_PortName.Text = "COM1";
             // 
             // label5
@@ -218,7 +219,7 @@
             this.Serial_Handshake.Location = new System.Drawing.Point(123, 134);
             this.Serial_Handshake.Name = "Serial_Handshake";
             this.Serial_Handshake.Size = new System.Drawing.Size(172, 21);
-            this.Serial_Handshake.TabIndex = 5;
+            this.Serial_Handshake.TabIndex = 4;
             this.Serial_Handshake.ValueMember = "Brak";
             // 
             // Serial_StopBits
@@ -233,14 +234,14 @@
             this.Serial_StopBits.Location = new System.Drawing.Point(123, 107);
             this.Serial_StopBits.Name = "Serial_StopBits";
             this.Serial_StopBits.Size = new System.Drawing.Size(172, 21);
-            this.Serial_StopBits.TabIndex = 4;
+            this.Serial_StopBits.TabIndex = 3;
             // 
             // Serial_ParityCheck
             // 
             this.Serial_ParityCheck.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.Serial_ParityCheck.FormattingEnabled = true;
             this.Serial_ParityCheck.Items.AddRange(new object[] {
-            "None",
+            "Brak",
             "Odd",
             "Even",
             "Mark",
@@ -248,7 +249,7 @@
             this.Serial_ParityCheck.Location = new System.Drawing.Point(123, 80);
             this.Serial_ParityCheck.Name = "Serial_ParityCheck";
             this.Serial_ParityCheck.Size = new System.Drawing.Size(172, 21);
-            this.Serial_ParityCheck.TabIndex = 3;
+            this.Serial_ParityCheck.TabIndex = 2;
             // 
             // label1
             // 
@@ -261,6 +262,7 @@
             // 
             // Group_ConfigureUDP
             // 
+            this.Group_ConfigureUDP.Controls.Add(this.UDP_Any);
             this.Group_ConfigureUDP.Controls.Add(this.label10);
             this.Group_ConfigureUDP.Controls.Add(this.label9);
             this.Group_ConfigureUDP.Controls.Add(this.UDP_IP4);
@@ -275,9 +277,20 @@
             this.Group_ConfigureUDP.Location = new System.Drawing.Point(3, 82);
             this.Group_ConfigureUDP.Name = "Group_ConfigureUDP";
             this.Group_ConfigureUDP.Size = new System.Drawing.Size(301, 83);
-            this.Group_ConfigureUDP.TabIndex = 3;
+            this.Group_ConfigureUDP.TabIndex = 1;
             this.Group_ConfigureUDP.TabStop = false;
             this.Group_ConfigureUDP.Text = "Konfiguracja połączenia UDP";
+            // 
+            // UDP_Any
+            // 
+            this.UDP_Any.AutoSize = true;
+            this.UDP_Any.Location = new System.Drawing.Point(212, 48);
+            this.UDP_Any.Name = "UDP_Any";
+            this.UDP_Any.Size = new System.Drawing.Size(81, 17);
+            this.UDP_Any.TabIndex = 6;
+            this.UDP_Any.Text = "Dowolne IP";
+            this.UDP_Any.UseVisualStyleBackColor = true;
+            this.UDP_Any.CheckedChanged += new System.EventHandler(this.UDP_Any_CheckedChanged);
             // 
             // label10
             // 
@@ -294,15 +307,16 @@
             this.label9.Location = new System.Drawing.Point(7, 23);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(47, 13);
-            this.label9.TabIndex = 9;
+            this.label9.TabIndex = 0;
             this.label9.Text = "Adres IP";
             // 
             // UDP_IP4
             // 
             this.UDP_IP4.Location = new System.Drawing.Point(264, 20);
+            this.UDP_IP4.MaxLength = 3;
             this.UDP_IP4.Name = "UDP_IP4";
             this.UDP_IP4.Size = new System.Drawing.Size(29, 20);
-            this.UDP_IP4.TabIndex = 8;
+            this.UDP_IP4.TabIndex = 4;
             this.UDP_IP4.Text = "0";
             this.UDP_IP4.TextChanged += new System.EventHandler(this.UDPIP_ValidateTextChange);
             // 
@@ -313,15 +327,16 @@
             this.label8.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(10, 13);
-            this.label8.TabIndex = 7;
+            this.label8.TabIndex = 5;
             this.label8.Text = ".";
             // 
             // UDP_IP3
             // 
             this.UDP_IP3.Location = new System.Drawing.Point(217, 20);
+            this.UDP_IP3.MaxLength = 3;
             this.UDP_IP3.Name = "UDP_IP3";
             this.UDP_IP3.Size = new System.Drawing.Size(29, 20);
-            this.UDP_IP3.TabIndex = 6;
+            this.UDP_IP3.TabIndex = 3;
             this.UDP_IP3.Text = "0";
             this.UDP_IP3.TextChanged += new System.EventHandler(this.UDPIP_ValidateTextChange);
             // 
@@ -332,15 +347,16 @@
             this.label7.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(10, 13);
-            this.label7.TabIndex = 5;
+            this.label7.TabIndex = 3;
             this.label7.Text = ".";
             // 
             // UDP_IP2
             // 
             this.UDP_IP2.Location = new System.Drawing.Point(170, 20);
+            this.UDP_IP2.MaxLength = 3;
             this.UDP_IP2.Name = "UDP_IP2";
             this.UDP_IP2.Size = new System.Drawing.Size(29, 20);
-            this.UDP_IP2.TabIndex = 4;
+            this.UDP_IP2.TabIndex = 2;
             this.UDP_IP2.Text = "0";
             this.UDP_IP2.TextChanged += new System.EventHandler(this.UDPIP_ValidateTextChange);
             // 
@@ -351,24 +367,26 @@
             this.label6.Margin = new System.Windows.Forms.Padding(1, 0, 1, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(10, 13);
-            this.label6.TabIndex = 3;
+            this.label6.TabIndex = 1;
             this.label6.Text = ".";
             // 
             // UDP_Port
             // 
             this.UDP_Port.Location = new System.Drawing.Point(123, 46);
+            this.UDP_Port.MaxLength = 5;
             this.UDP_Port.Name = "UDP_Port";
             this.UDP_Port.Size = new System.Drawing.Size(43, 20);
-            this.UDP_Port.TabIndex = 1;
+            this.UDP_Port.TabIndex = 5;
             this.UDP_Port.Text = "0";
             this.UDP_Port.TextChanged += new System.EventHandler(this.UDPIP_ValidateTextChange);
             // 
             // UDP_IP1
             // 
             this.UDP_IP1.Location = new System.Drawing.Point(123, 20);
+            this.UDP_IP1.MaxLength = 3;
             this.UDP_IP1.Name = "UDP_IP1";
             this.UDP_IP1.Size = new System.Drawing.Size(29, 20);
-            this.UDP_IP1.TabIndex = 0;
+            this.UDP_IP1.TabIndex = 1;
             this.UDP_IP1.Text = "0";
             this.UDP_IP1.TextChanged += new System.EventHandler(this.UDPIP_ValidateTextChange);
             // 
@@ -380,7 +398,7 @@
             this.Configuration_Main.Location = new System.Drawing.Point(3, 3);
             this.Configuration_Main.Name = "Configuration_Main";
             this.Configuration_Main.Size = new System.Drawing.Size(301, 73);
-            this.Configuration_Main.TabIndex = 1;
+            this.Configuration_Main.TabIndex = 0;
             this.Configuration_Main.TabStop = false;
             this.Configuration_Main.Text = "Jak połączyć się z odbiornikiem?";
             // 
@@ -393,6 +411,7 @@
             this.Button_Connect.TabIndex = 2;
             this.Button_Connect.Text = "Połącz";
             this.Button_Connect.UseVisualStyleBackColor = true;
+            this.Button_Connect.Click += new System.EventHandler(this.Button_Connect_Click);
             // 
             // Configuration_Serial
             // 
@@ -550,6 +569,84 @@
             this.tabPage3.Text = "Próba wężowa";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label23);
+            this.groupBox4.Controls.Add(this.label24);
+            this.groupBox4.Controls.Add(this.label21);
+            this.groupBox4.Controls.Add(this.label22);
+            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Controls.Add(this.label15);
+            this.groupBox4.Location = new System.Drawing.Point(4, 248);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(294, 53);
+            this.groupBox4.TabIndex = 3;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Wynik próby:";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(221, 20);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(10, 13);
+            this.label23.TabIndex = 5;
+            this.label23.Text = "-";
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(198, 20);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(19, 13);
+            this.label24.TabIndex = 4;
+            this.label24.Text = "δc";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(128, 20);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(10, 13);
+            this.label21.TabIndex = 3;
+            this.label21.Text = "-";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(105, 20);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(16, 13);
+            this.label22.TabIndex = 2;
+            this.label22.Text = "k:";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(30, 20);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(10, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "-";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(7, 20);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(17, 13);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "T:";
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 307);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(147, 30);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Rozpocznij próbę";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // Button_GenerateRaport
             // 
             this.Button_GenerateRaport.Location = new System.Drawing.Point(157, 307);
@@ -577,84 +674,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(289, 214);
             this.dataGridView1.TabIndex = 0;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(3, 307);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(147, 30);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Rozpocznij próbę";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label23);
-            this.groupBox4.Controls.Add(this.label24);
-            this.groupBox4.Controls.Add(this.label21);
-            this.groupBox4.Controls.Add(this.label22);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Location = new System.Drawing.Point(4, 248);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(294, 53);
-            this.groupBox4.TabIndex = 3;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Wynik próby:";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 20);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(17, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "T:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(30, 20);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(10, 13);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "-";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(128, 20);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(10, 13);
-            this.label21.TabIndex = 3;
-            this.label21.Text = "-";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(105, 20);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(16, 13);
-            this.label22.TabIndex = 2;
-            this.label22.Text = "k:";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(221, 20);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(10, 13);
-            this.label23.TabIndex = 5;
-            this.label23.Text = "-";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(198, 20);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(19, 13);
-            this.label24.TabIndex = 4;
-            this.label24.Text = "δc";
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -676,10 +695,10 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -739,6 +758,7 @@
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox UDP_Any;
     }
 }
 

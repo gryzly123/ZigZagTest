@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppGlobals.cs" />
     <Compile Include="DataReceiver.cs" />
     <Compile Include="GPSManager.cs" />
     <Compile Include="MainWindow.cs">

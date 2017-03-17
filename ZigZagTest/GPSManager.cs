@@ -52,6 +52,17 @@ namespace ZigZagTest
             NewInstance.SOG = SOG;
             return NewInstance;
         }
+
+        public string GetLogString(DateTime FirstEntry, int Index)
+        {
+            TimeSpan Daytime = (FirstEntry.AddSeconds(Index)).TimeOfDay;
+            string CurrentTime = Daytime.Hours + ":" + Daytime.Minutes + ":" + Daytime.Seconds;
+            string Lat = (Latitude  >= 0) ? Latitude.ToString("0.00000")  + "N" : Latitude.ToString("0.00000")  + "S";
+            string Lon = (Longitude >= 0) ? Longitude.ToString("0.00000") + "E" : Longitude.ToString("0.00000") + "W";
+            string Spd = SOG.ToString("0.0") + " kn";
+            string Crs = COG.ToString("0.0") + " deg";
+            return "[" + CurrentTime + "] " + Lat + " " + Lon + " " + Crs + " " + Spd;
+        }
     }
 
     public class GPSManager
@@ -81,7 +92,5 @@ namespace ZigZagTest
         {
             DataSnapshots.Add(CurrentState.Clone());
         }
-
-
     }
 }
