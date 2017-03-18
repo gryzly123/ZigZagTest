@@ -79,12 +79,12 @@ namespace ZigZagTest
         {
             UDPManager = new UdpClient(Port);
             UDPEndpoint = new IPEndPoint(IP, Port);
-            UDPManager.Connect(UDPEndpoint);
+            //UDPManager.Connect(UDPEndpoint);
         }
 
         protected override void Cleanup()
         {
-            UDPManager.Close();
+            //UDPManager.Close();
         }
 
         protected override void ReadAsync()

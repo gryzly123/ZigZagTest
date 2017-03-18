@@ -215,7 +215,7 @@
             "Brak",
             "X ON X OFF",
             "Zarządaj przesłania",
-            "Zarządzaj przełania X ON X OFF"});
+            "Zarządaj przesłania X ON X OFF"});
             this.Serial_Handshake.Location = new System.Drawing.Point(123, 134);
             this.Serial_Handshake.Name = "Serial_Handshake";
             this.Serial_Handshake.Size = new System.Drawing.Size(172, 21);

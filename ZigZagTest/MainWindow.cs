@@ -18,14 +18,27 @@ namespace ZigZagTest
         {
             None,
             UDP,
-            Serial
+            Serial,
+            ConnectedNow
         };
         ConnectionType SelectedConnectionType = ConnectionType.None;
-
+        bool RunningConnection = false;
+        bool CanUseSerialPort = true;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            Serial_PortName.Items.Clear();
+            foreach (string Item in SerialPort.GetPortNames()) Serial_PortName.Items.Add(Item);
+            if (Serial_PortName.Items.Count != 0) Serial_PortName.SelectedIndex = 0;
+            else CanUseSerialPort = false;
+            Configuration_Serial.Enabled = false;
+
+            Serial_ParityCheck.SelectedIndex = 0;
+            Serial_StopBits.SelectedIndex = 0;
+            Serial_Handshake.SelectedIndex = 0;
+        
         }
 
         private void UDPIP_ValidateTextChange(object sender, EventArgs e)
@@ -86,6 +99,12 @@ namespace ZigZagTest
                     Group_ConfigureSerial.Enabled = false;
                     Button_Connect.Enabled = false;
                     break;
+
+                case ConnectionType.ConnectedNow:
+                    Group_ConfigureUDP.Enabled = false;
+                    Group_ConfigureSerial.Enabled = false;
+                    Button_Connect.Enabled = true;
+                    break;
             }
         }
 
@@ -93,49 +112,51 @@ namespace ZigZagTest
         {
             switch (SelectedConnectionType)
             {
-                case ConnectionType.UDP:    CreateUDP();    break;
+                case ConnectionType.UDP: CreateUDP(); break;
                 case ConnectionType.Serial: CreateSerial(); break;
+                case ConnectionType.ConnectedNow: AppGlobals.CurrentDataReceiver.StopReading(); Button_Connect.Text = "Połącz"; return;
             }
 
+            SelectedConnectionType = ConnectionType.ConnectedNow;
+            Button_Connect.Text = "Rozłącz";
+            ConfigurationScreen_UpdateGroups();
             AppGlobals.CurrentDataReceiver.StartReading();
         }
 
         private void CreateSerial()
         {
+            string PN = Serial_PortName.Text;
+            int BPS = Convert.ToInt32(Serial_BPSRate.Text);
             Parity P = Parity.None;
             StopBits SB = StopBits.None;
             Handshake H = Handshake.None;
 
-            switch (Serial_ParityCheck.Text)
+            switch (Serial_ParityCheck.SelectedIndex)
             {
-                case "Brak": P = Parity.None; break;
-                case "Odd": P = Parity.Odd; break;
-                case "Even": P = Parity.Even; break;
-                case "Mark": P = Parity.Mark; break;
-                case "Space": P = Parity.Space; break;
+                case 0: P = Parity.None; break;
+                case 1: P = Parity.Odd; break;
+                case 2: P = Parity.Even; break;
+                case 3: P = Parity.Mark; break;
+                case 4: P = Parity.Space; break;
             }
 
-            switch (Serial_StopBits.Text)
+            switch (Serial_StopBits.SelectedIndex)
             {
-                case "Brak": SB = StopBits.None; break;
-                case "One": SB = StopBits.One; break;
-                case "Two": SB = StopBits.Two; break;
-                case "One Point Five": SB = StopBits.OnePointFive; break;
+                case 0: SB = StopBits.None; break;
+                case 1: SB = StopBits.One; break;
+                case 2: SB = StopBits.Two; break;
+                case 3: SB = StopBits.OnePointFive; break;
             }
 
-            switch (Serial_Handshake.Text)
+            switch (Serial_Handshake.SelectedIndex)
             {
-                case "Brak": H = Handshake.None; break;
-                case "X ON X OFF": H = Handshake.XOnXOff; break;
-                case "Zarządaj przesłania": H = Handshake.RequestToSend; break;
-                case "Zarządzaj przełania X ON X OFF": H = Handshake.RequestToSendXOnXOff; break;
+                case 0: H = Handshake.None; break;
+                case 1: H = Handshake.XOnXOff; break;
+                case 2: H = Handshake.RequestToSend; break;
+                case 3: H = Handshake.RequestToSendXOnXOff; break;
             }
 
-            AppGlobals.CurrentDataReceiver = new SerialReceiver(
-                                                                Serial_PortName.Text,
-                                                                Convert.ToInt32(Serial_BPSRate.Text),
-                                                                P, SB, H
-                                                               );
+            AppGlobals.CurrentDataReceiver = new SerialReceiver(PN, BPS, P, SB, H);
         }
 
         private void CreateUDP()
