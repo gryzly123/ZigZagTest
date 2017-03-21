@@ -15,6 +15,8 @@ namespace ZigZagTest
         public static UpdateLocation OnLocationUpdated;
         public static UpdateCOG OnRotationUpdated;
         public static UpdateSOG OnVelocityUpdated;
+        static int SatelliteCount = 0;
+        public static int GetSatelliteCount() { return SatelliteCount; }
 
         public static void ParseLine(string Line)
         {
@@ -55,18 +57,25 @@ namespace ZigZagTest
         }
         private static void GGA(string[] SplitLine)
         {
-            throw new NotImplementedException();
-
-
-            double Latitude = Convert.ToDouble(SplitLine[2].Replace('.', ','));
-            double Longitude = Convert.ToDouble(SplitLine[4].Replace('.', ','));
-            if (SplitLine[34] == "S") Latitude *= -1;
+            float Latitude = Convert.ToSingle(SplitLine[2].Replace('.', ','));
+            float Longitude = Convert.ToSingle(SplitLine[4].Replace('.', ','));
+            if (SplitLine[3] == "S") Latitude *= -1;
             if (SplitLine[5] == "W") Longitude *= -1;
+            SatelliteCount = Convert.ToInt32(SplitLine[7]);
+            OnLocationUpdated.Invoke(Latitude, Longitude);
         }
+
+
         private static void RMC(string[] SplitLine)
         {
-            throw new NotImplementedException();
+            float Latitude = Convert.ToSingle(SplitLine[2].Replace('.', ','));
+            float Longitude = Convert.ToSingle(SplitLine[4].Replace('.', ','));
+            if (SplitLine[3] == "S") Latitude *= -1;
+            if (SplitLine[5] == "W") Longitude *= -1;
+            SatelliteCount = Convert.ToInt32(SplitLine[7]);
+            OnLocationUpdated.Invoke(Latitude, Longitude);
         }
+
         private static void VTG(string[] SplitLine)
         {
             throw new NotImplementedException();

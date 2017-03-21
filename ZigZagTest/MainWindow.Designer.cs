@@ -78,7 +78,7 @@
             this.label22 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.Button_BeginZigZag = new System.Windows.Forms.Button();
             this.Button_GenerateRaport = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -559,7 +559,7 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.groupBox4);
-            this.tabPage3.Controls.Add(this.button1);
+            this.tabPage3.Controls.Add(this.Button_BeginZigZag);
             this.tabPage3.Controls.Add(this.Button_GenerateRaport);
             this.tabPage3.Controls.Add(this.groupBox2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
@@ -577,9 +577,9 @@
             this.groupBox4.Controls.Add(this.label22);
             this.groupBox4.Controls.Add(this.label16);
             this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Location = new System.Drawing.Point(4, 248);
+            this.groupBox4.Location = new System.Drawing.Point(4, 259);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(294, 53);
+            this.groupBox4.Size = new System.Drawing.Size(300, 42);
             this.groupBox4.TabIndex = 3;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Wynik próby:";
@@ -638,14 +638,15 @@
             this.label15.TabIndex = 0;
             this.label15.Text = "T:";
             // 
-            // button1
+            // Button_BeginZigZag
             // 
-            this.button1.Location = new System.Drawing.Point(3, 307);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(147, 30);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Rozpocznij próbę";
-            this.button1.UseVisualStyleBackColor = true;
+            this.Button_BeginZigZag.Location = new System.Drawing.Point(3, 307);
+            this.Button_BeginZigZag.Name = "Button_BeginZigZag";
+            this.Button_BeginZigZag.Size = new System.Drawing.Size(147, 30);
+            this.Button_BeginZigZag.TabIndex = 2;
+            this.Button_BeginZigZag.Text = "Rozpocznij próbę";
+            this.Button_BeginZigZag.UseVisualStyleBackColor = true;
+            this.Button_BeginZigZag.Click += new System.EventHandler(this.Button_BeginZigZag_Click);
             // 
             // Button_GenerateRaport
             // 
@@ -661,7 +662,7 @@
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(301, 239);
+            this.groupBox2.Size = new System.Drawing.Size(301, 250);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Statystyki ostatniej próby";
@@ -671,7 +672,7 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(289, 214);
+            this.dataGridView1.Size = new System.Drawing.Size(289, 225);
             this.dataGridView1.TabIndex = 0;
             // 
             // MainWindow
@@ -680,6 +681,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(337, 394);
             this.Controls.Add(this.MainTabControl);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "MainWindow";
             this.Text = "ZigZag - Próba wężowa";
             this.MainTabControl.ResumeLayout(false);
@@ -750,7 +752,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button Button_BeginZigZag;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label23;
         private System.Windows.Forms.Label label24;

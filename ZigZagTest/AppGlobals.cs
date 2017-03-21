@@ -10,5 +10,6 @@ namespace ZigZagTest
     {
         public static DataReceiver CurrentDataReceiver;
         public static GPSManager CurrentGPSManager;
+        public static ZigZag CurrentZigZag;
     }
 }

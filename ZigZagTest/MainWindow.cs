@@ -29,12 +29,17 @@ namespace ZigZagTest
         {
             InitializeComponent();
 
+            //zawsze używaj kropek zamiast przecinków
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+
+            //konfiguracja portu szeregowego
             Serial_PortName.Items.Clear();
             foreach (string Item in SerialPort.GetPortNames()) Serial_PortName.Items.Add(Item);
             if (Serial_PortName.Items.Count != 0) Serial_PortName.SelectedIndex = 0;
             else CanUseSerialPort = false;
             Configuration_Serial.Enabled = false;
-
             Serial_ParityCheck.SelectedIndex = 0;
             Serial_StopBits.SelectedIndex = 0;
             Serial_Handshake.SelectedIndex = 0;
@@ -114,7 +119,12 @@ namespace ZigZagTest
             {
                 case ConnectionType.UDP: CreateUDP(); break;
                 case ConnectionType.Serial: CreateSerial(); break;
-                case ConnectionType.ConnectedNow: AppGlobals.CurrentDataReceiver.StopReading(); Button_Connect.Text = "Połącz"; return;
+                case ConnectionType.ConnectedNow:
+
+                    AppGlobals.CurrentDataReceiver.StopReading();
+                    Button_Connect.Text = "Połącz";
+                    ConfigurationScreen_UpdateGroups();
+                    return;
             }
 
             SelectedConnectionType = ConnectionType.ConnectedNow;
@@ -183,6 +193,12 @@ namespace ZigZagTest
             UDP_IP2.Enabled = Set;
             UDP_IP3.Enabled = Set;
             UDP_IP4.Enabled = Set;
+        }
+
+        private void Button_BeginZigZag_Click(object sender, EventArgs e)
+        {
+            ZigZagConfig Config = new ZigZagConfig();
+            Config.ShowDialog();
         }
     }
 }
