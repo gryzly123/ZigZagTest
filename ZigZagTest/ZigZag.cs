@@ -38,8 +38,8 @@ namespace ZigZagTest
         private TimeSpan[] Times;
         private ZigZagResult Result;
         private State CurrentState;
-        private float SOG, COG, ROT;
-        private DateTime SinceLastCOGUpdate, SinceLastSOGUpdate;
+        private float SOG, COG/*, ROT*/;
+        //private DateTime SinceLastCOGUpdate, SinceLastSOGUpdate;
 
         public ZigZag(int Angle, int Count)
         {
@@ -53,14 +53,15 @@ namespace ZigZagTest
 
         private void RotationUpdated(float COG)
         {
-            if (SinceLastCOGUpdate == null) SinceLastCOGUpdate = DateTime.UtcNow;
-
-            ROT = COG - this.COG;
-            if (ROT > 180) ROT -= 360;
-            if (ROT < -180) ROT += 360;
-
-            float SinceLastUpdate = (float)(DateTime.UtcNow - SinceLastCOGUpdate).TotalSeconds;
-            ROT /= SinceLastUpdate;
+            this.COG = COG;
+            //if (SinceLastCOGUpdate == null) SinceLastCOGUpdate = DateTime.UtcNow;
+            //
+            //ROT = COG - this.COG;
+            //if (ROT > 180) ROT -= 360;
+            //if (ROT < -180) ROT += 360;
+            //
+            //float SinceLastUpdate = (float)(DateTime.UtcNow - SinceLastCOGUpdate).TotalSeconds;
+            //ROT /= SinceLastUpdate;
         }
 
         private void VelocityUpdated(float SOG)

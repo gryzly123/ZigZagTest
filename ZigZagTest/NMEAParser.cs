@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ZigZagTest
 {
@@ -27,13 +28,15 @@ namespace ZigZagTest
                 {
                     case "$GPGGA": GGA(SplitLine); break;
                     case "$GPRMC": RMC(SplitLine); break;
-                    case "$GPVTG": VTG(SplitLine); break;
+                    //default: MessageBox.Show("Invalid case: " + SplitLine[0]); break;
                 }
             }
         }
 
         private static bool Checksum(string Line)
         {
+            return true; //TODO: debug
+
             int Size = Line.Count();
 
             try
@@ -55,30 +58,28 @@ namespace ZigZagTest
 
             return false;
         }
+
         private static void GGA(string[] SplitLine)
         {
-            float Latitude = Convert.ToSingle(SplitLine[2].Replace('.', ','));
-            float Longitude = Convert.ToSingle(SplitLine[4].Replace('.', ','));
+            float Latitude = Convert.ToSingle(SplitLine[2]);
+            float Longitude = Convert.ToSingle(SplitLine[4]);
             if (SplitLine[3] == "S") Latitude *= -1;
             if (SplitLine[5] == "W") Longitude *= -1;
             SatelliteCount = Convert.ToInt32(SplitLine[7]);
             OnLocationUpdated.Invoke(Latitude, Longitude);
         }
-
 
         private static void RMC(string[] SplitLine)
         {
-            float Latitude = Convert.ToSingle(SplitLine[2].Replace('.', ','));
-            float Longitude = Convert.ToSingle(SplitLine[4].Replace('.', ','));
-            if (SplitLine[3] == "S") Latitude *= -1;
-            if (SplitLine[5] == "W") Longitude *= -1;
-            SatelliteCount = Convert.ToInt32(SplitLine[7]);
+            float Latitude = Convert.ToSingle(SplitLine[3]);
+            float Longitude = Convert.ToSingle(SplitLine[5]);
+            if (SplitLine[4] == "S") Latitude *= -1;
+            if (SplitLine[6] == "W") Longitude *= -1;
+            float SOG = Convert.ToSingle(Convert.ToDouble(SplitLine[7]));
+            float COG = Convert.ToSingle(Convert.ToDouble(SplitLine[8]));
             OnLocationUpdated.Invoke(Latitude, Longitude);
-        }
-
-        private static void VTG(string[] SplitLine)
-        {
-            throw new NotImplementedException();
+            OnVelocityUpdated.Invoke(SOG);
+            OnRotationUpdated.Invoke(COG);
         }
     }
 }

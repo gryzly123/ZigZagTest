@@ -43,7 +43,27 @@ namespace ZigZagTest
             Serial_ParityCheck.SelectedIndex = 0;
             Serial_StopBits.SelectedIndex = 0;
             Serial_Handshake.SelectedIndex = 0;
-        
+
+            //konfiguracja HUDa
+            NMEAParser.OnLocationUpdated = new UpdateLocation(HUD_UpdateLocation);
+            NMEAParser.OnRotationUpdated = new UpdateCOG(HUD_UpdateCourse);
+            NMEAParser.OnVelocityUpdated = new UpdateSOG(HUD_UpdateSpeed);
+        }
+
+        private void HUD_UpdateLocation(float Lat, float Lon)
+        {
+            HUD_Lat.Invoke(new Action(() => HUD_Lat.Text = Lat.ToString("0.00000") + " " + (Lat >= 0 ? "N" : "S")));
+            HUD_Lon.Invoke(new Action(() => HUD_Lon.Text = Lon.ToString("0.00000") + " " + (Lon >= 0 ? "E" : "W")));
+        }
+
+        private void HUD_UpdateCourse(float COG)
+        {
+            HUD_COG.Invoke(new Action(() => HUD_COG.Text = COG.ToString("0.0") + " deg"));
+        }
+
+        private void HUD_UpdateSpeed(float SOG)
+        {
+            HUD_SOG.Invoke(new Action(() => HUD_SOG.Text = SOG.ToString("0.0") + " kn"));
         }
 
         private void UDPIP_ValidateTextChange(object sender, EventArgs e)
@@ -130,7 +150,14 @@ namespace ZigZagTest
             SelectedConnectionType = ConnectionType.ConnectedNow;
             Button_Connect.Text = "Rozłącz";
             ConfigurationScreen_UpdateGroups();
+
+            AppGlobals.CurrentDataReceiver.AddDelegateOnDataReceived(new ReceiveLine(AddLine));
             AppGlobals.CurrentDataReceiver.StartReading();
+        }
+
+        private void AddLine(string Line)
+        {
+            List_DataReadings.Invoke(new Action(() => List_DataReadings.Items.Insert(0, Line)));
         }
 
         private void CreateSerial()

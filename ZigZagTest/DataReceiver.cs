@@ -4,6 +4,7 @@ using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Windows.Forms;
 
 namespace ZigZagTest
 {
@@ -19,6 +20,11 @@ namespace ZigZagTest
 
         public bool IsRunning() { return !BreakLoop; }
 
+        public void AddDelegateOnDataReceived(ReceiveLine NewDelegate)
+        {
+            OnDataReceived += NewDelegate;
+        }
+
         //metody do uruchamiania i zakończania Receivera
         public void StartReading()
         {
@@ -30,16 +36,21 @@ namespace ZigZagTest
 
         private void AyncReader_DoWork(object sender, DoWorkEventArgs Args)
         {
+            System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
+            customCulture.NumberFormat.NumberDecimalSeparator = ".";
+            System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
+
             Configure();
-            try
-            {
-                Running = true;
-                while (!BreakLoop) ReadAsync();
-            }
-            catch(Exception E)
-            {
-                ReactToException();
-            }
+            while (!BreakLoop) ReadAsync();
+            //  try
+            //  {
+            //      Running = true;
+            //      while (!BreakLoop) ReadAsync();
+            //  }
+            //  catch(Exception E)
+            //  {
+            //      ReactToException(E);
+            //  }
             Running = false;
             Cleanup();
         }
@@ -48,12 +59,15 @@ namespace ZigZagTest
         {
             BreakLoop = true;
         }
+        protected void ReactToException(Exception E)
+        {
+            MessageBox.Show(E.Message);
+        }
 
         //przeciążalne metody implementujące ścieżki komunikacji faktycznego Receivera, np. UDP
         protected abstract void ReadAsync();           //Oczekiwanie na kolejną linię
         protected abstract void Configure();           //Inicjalizacja
         protected abstract void Cleanup();             //Zakończenie pracy
-        protected abstract void ReactToException();    //Reakcja na wyjątki try/catch
     }
 
     public class UDPReceiver : DataReceiver
@@ -93,11 +107,6 @@ namespace ZigZagTest
             string Line = Encoding.ASCII.GetString(Message);
             OnDataReceived.Invoke(Line);
         }
-
-        protected override void ReactToException()
-        {
-            throw new NotImplementedException();
-        }
     }
 
     public class SerialReceiver : DataReceiver
@@ -119,11 +128,6 @@ namespace ZigZagTest
         protected override void Configure()
         {
             Port.Open();
-        }
-
-        protected override void ReactToException()
-        {
-            throw new NotImplementedException();
         }
 
         protected override void ReadAsync()

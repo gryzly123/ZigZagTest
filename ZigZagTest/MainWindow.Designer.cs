@@ -60,12 +60,12 @@
             this.Configuration_UDP = new System.Windows.Forms.RadioButton();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.List_DataReadings = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
+            this.HUD_COG = new System.Windows.Forms.Label();
+            this.HUD_SOG = new System.Windows.Forms.Label();
+            this.HUD_Lon = new System.Windows.Forms.Label();
+            this.HUD_Lat = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
@@ -451,7 +451,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.listBox1);
+            this.groupBox1.Controls.Add(this.List_DataReadings);
             this.groupBox1.Location = new System.Drawing.Point(3, 87);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(301, 247);
@@ -459,20 +459,20 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Odczyty";
             // 
-            // listBox1
+            // List_DataReadings
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(9, 19);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(286, 147);
-            this.listBox1.TabIndex = 0;
+            this.List_DataReadings.FormattingEnabled = true;
+            this.List_DataReadings.Location = new System.Drawing.Point(9, 19);
+            this.List_DataReadings.Name = "List_DataReadings";
+            this.List_DataReadings.Size = new System.Drawing.Size(286, 147);
+            this.List_DataReadings.TabIndex = 0;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.label17);
-            this.groupBox3.Controls.Add(this.label18);
-            this.groupBox3.Controls.Add(this.label19);
-            this.groupBox3.Controls.Add(this.label20);
+            this.groupBox3.Controls.Add(this.HUD_COG);
+            this.groupBox3.Controls.Add(this.HUD_SOG);
+            this.groupBox3.Controls.Add(this.HUD_Lon);
+            this.groupBox3.Controls.Add(this.HUD_Lat);
             this.groupBox3.Controls.Add(this.label14);
             this.groupBox3.Controls.Add(this.label13);
             this.groupBox3.Controls.Add(this.label12);
@@ -484,41 +484,41 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Heads up";
             // 
-            // label17
+            // HUD_COG
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(218, 47);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(10, 13);
-            this.label17.TabIndex = 8;
-            this.label17.Text = "-";
+            this.HUD_COG.AutoSize = true;
+            this.HUD_COG.Location = new System.Drawing.Point(218, 47);
+            this.HUD_COG.Name = "HUD_COG";
+            this.HUD_COG.Size = new System.Drawing.Size(10, 13);
+            this.HUD_COG.TabIndex = 8;
+            this.HUD_COG.Text = "-";
             // 
-            // label18
+            // HUD_SOG
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(218, 25);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(10, 13);
-            this.label18.TabIndex = 7;
-            this.label18.Text = "-";
+            this.HUD_SOG.AutoSize = true;
+            this.HUD_SOG.Location = new System.Drawing.Point(218, 25);
+            this.HUD_SOG.Name = "HUD_SOG";
+            this.HUD_SOG.Size = new System.Drawing.Size(10, 13);
+            this.HUD_SOG.TabIndex = 7;
+            this.HUD_SOG.Text = "-";
             // 
-            // label19
+            // HUD_Lon
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(66, 47);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(10, 13);
-            this.label19.TabIndex = 6;
-            this.label19.Text = "-";
+            this.HUD_Lon.AutoSize = true;
+            this.HUD_Lon.Location = new System.Drawing.Point(66, 47);
+            this.HUD_Lon.Name = "HUD_Lon";
+            this.HUD_Lon.Size = new System.Drawing.Size(10, 13);
+            this.HUD_Lon.TabIndex = 6;
+            this.HUD_Lon.Text = "-";
             // 
-            // label20
+            // HUD_Lat
             // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(66, 25);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(10, 13);
-            this.label20.TabIndex = 5;
-            this.label20.Text = "-";
+            this.HUD_Lat.AutoSize = true;
+            this.HUD_Lat.Location = new System.Drawing.Point(66, 25);
+            this.HUD_Lat.Name = "HUD_Lat";
+            this.HUD_Lat.Size = new System.Drawing.Size(10, 13);
+            this.HUD_Lat.TabIndex = 5;
+            this.HUD_Lat.Text = "-";
             // 
             // label14
             // 
@@ -743,15 +743,15 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.Label HUD_COG;
+        private System.Windows.Forms.Label HUD_SOG;
+        private System.Windows.Forms.Label HUD_Lon;
+        private System.Windows.Forms.Label HUD_Lat;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.ListBox List_DataReadings;
         private System.Windows.Forms.Button Button_BeginZigZag;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.Label label23;
