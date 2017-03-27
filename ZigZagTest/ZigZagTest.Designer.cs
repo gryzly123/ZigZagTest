@@ -28,16 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.Label_Instruction = new System.Windows.Forms.Label();
             this.Button_Begin = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.Label_RelativeCourse = new System.Windows.Forms.Label();
+            this.Label_COG = new System.Windows.Forms.Label();
+            this.Label_Time = new System.Windows.Forms.Label();
+            this.Label_SOG = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
+            this.ZigZag_Timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // Label_Instruction
@@ -59,6 +61,7 @@
             this.Button_Begin.TabIndex = 1;
             this.Button_Begin.Text = "ROZPOCZNIJ";
             this.Button_Begin.UseVisualStyleBackColor = true;
+            this.Button_Begin.Click += new System.EventHandler(this.Button_Begin_Click);
             // 
             // label1
             // 
@@ -90,45 +93,45 @@
             this.label3.TabIndex = 4;
             this.label3.Text = "Kąt względny:";
             // 
-            // label4
+            // Label_RelativeCourse
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(263, 323);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 31);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "-";
+            this.Label_RelativeCourse.AutoSize = true;
+            this.Label_RelativeCourse.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Label_RelativeCourse.Location = new System.Drawing.Point(263, 323);
+            this.Label_RelativeCourse.Name = "Label_RelativeCourse";
+            this.Label_RelativeCourse.Size = new System.Drawing.Size(23, 31);
+            this.Label_RelativeCourse.TabIndex = 7;
+            this.Label_RelativeCourse.Text = "-";
             // 
-            // label5
+            // Label_COG
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(263, 283);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(23, 31);
-            this.label5.TabIndex = 6;
-            this.label5.Text = "-";
+            this.Label_COG.AutoSize = true;
+            this.Label_COG.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Label_COG.Location = new System.Drawing.Point(263, 283);
+            this.Label_COG.Name = "Label_COG";
+            this.Label_COG.Size = new System.Drawing.Size(23, 31);
+            this.Label_COG.TabIndex = 6;
+            this.Label_COG.Text = "-";
             // 
-            // label6
+            // Label_Time
             // 
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label6.Location = new System.Drawing.Point(263, 242);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(128, 31);
-            this.label6.TabIndex = 5;
-            this.label6.Text = "0:00:00:0";
+            this.Label_Time.AutoSize = true;
+            this.Label_Time.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Label_Time.Location = new System.Drawing.Point(263, 242);
+            this.Label_Time.Name = "Label_Time";
+            this.Label_Time.Size = new System.Drawing.Size(128, 31);
+            this.Label_Time.TabIndex = 5;
+            this.Label_Time.Text = "0:00:00:0";
             // 
-            // label7
+            // Label_SOG
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label7.Location = new System.Drawing.Point(263, 363);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(23, 31);
-            this.label7.TabIndex = 9;
-            this.label7.Text = "-";
+            this.Label_SOG.AutoSize = true;
+            this.Label_SOG.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Label_SOG.Location = new System.Drawing.Point(263, 363);
+            this.Label_SOG.Name = "Label_SOG";
+            this.Label_SOG.Size = new System.Drawing.Size(23, 31);
+            this.Label_SOG.TabIndex = 9;
+            this.Label_SOG.Text = "-";
             // 
             // label8
             // 
@@ -140,16 +143,21 @@
             this.label8.TabIndex = 8;
             this.label8.Text = "Prędkość:";
             // 
+            // ZigZag_Timer
+            // 
+            this.ZigZag_Timer.Enabled = true;
+            this.ZigZag_Timer.Tick += new System.EventHandler(this.ZigZag_Timer_Tick);
+            // 
             // ZigZagTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(451, 417);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.Label_SOG);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label6);
+            this.Controls.Add(this.Label_RelativeCourse);
+            this.Controls.Add(this.Label_COG);
+            this.Controls.Add(this.Label_Time);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -170,10 +178,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label Label_RelativeCourse;
+        private System.Windows.Forms.Label Label_COG;
+        private System.Windows.Forms.Label Label_Time;
+        private System.Windows.Forms.Label Label_SOG;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Timer ZigZag_Timer;
     }
 }

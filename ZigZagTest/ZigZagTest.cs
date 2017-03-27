@@ -12,9 +12,29 @@ namespace ZigZagTest
 {
     public partial class ZigZagTest : Form
     {
-        public ZigZagTest()
+        private ZigZag Test;
+
+        public ZigZagTest(ZigZag CurrentTest)
         {
             InitializeComponent();
+            Test = CurrentTest;
+            Test.OnStateChanged = new StateChanged(SetNewInstructions);
+            
+        }
+
+        private void Button_Begin_Click(object sender, EventArgs e)
+        {
+            if(!Test.Running()) Test.Begin();
+        }
+
+        private void ZigZag_Timer_Tick(object sender, EventArgs e)
+        {
+            Test.Tick();
+        }
+
+        private void SetNewInstructions(State NewState)
+        {
+
         }
     }
 }

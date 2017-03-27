@@ -12,7 +12,7 @@ namespace ZigZagTest
 {
     public partial class ZigZagConfig : Form
     {
-        private int Angle, Count;
+        private int Angle, Angle2, Count;
 
         public ZigZagConfig()
         {
@@ -28,8 +28,8 @@ namespace ZigZagTest
 
         private void Button_Start_Click(object sender, EventArgs e)
         {
-            AppGlobals.CurrentZigZag = new ZigZag(Angle, Count);
-            ZigZagTest Test = new ZigZagTest();
+            AppGlobals.CurrentZigZag = new ZigZag(Angle, Angle2, Count);
+            ZigZagTest Test = new ZigZagTest(AppGlobals.CurrentZigZag);
             Test.Show();
             Close();
         }
@@ -37,9 +37,11 @@ namespace ZigZagTest
         private void UpdateTrackbars()
         {
             Angle = Trackbar_Angle.Value * 5;
+            Angle2 = Trackbar_Angle2.Value * 5;
             Count = Trackbar_Count.Value;
 
             Label_Angle.Text = Angle.ToString() + " deg";
+            Label_Angle2.Text = Angle2.ToString() + " deg";
             Label_Count.Text = Count.ToString();
         }
     }
