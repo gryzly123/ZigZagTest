@@ -29,12 +29,36 @@ namespace ZigZagTest
 
         private void ZigZag_Timer_Tick(object sender, EventArgs e)
         {
-            Test.Tick();
+            if (!Test.Tick()) FinishTest();
         }
 
-        private void SetNewInstructions(State NewState)
+        private void FinishTest()
         {
+            throw new NotImplementedException();
+        }
 
+        private void SetNewInstructions(State NewState, float TargetCOG, float TargetRudder)
+        {
+            string Message = "";
+
+            switch(NewState)
+            {
+                case State.TurningLeft:
+                    Message = "Nastaw ster na " + TargetRudder.ToString() + " w lewo!";
+                    break;
+
+                case State.TurningRight:
+                    Message = "Nastaw ster na " + TargetRudder.ToString() + " w prawo!";
+                    break;
+
+                case State.TurningLeft:
+                    Message = "Nastaw ster na " + TargetRudder.ToString() + "!";
+                    break;
+
+                case State.TurningLeft:
+                    Message = "Nastaw ster na " + TargetRudder.ToString() + "!";
+                    break;
+            }
         }
     }
 }

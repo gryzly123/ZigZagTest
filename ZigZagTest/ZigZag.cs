@@ -9,6 +9,13 @@ namespace ZigZagTest
 {
     public delegate void StateChanged(State NewState);
 
+    public enum RangeSubset
+    {
+        Left,
+        Right,
+        Both
+    };
+
     public class ZigZagNomotoResult
     {
         private float T, K, DC;
@@ -45,6 +52,7 @@ namespace ZigZagTest
         private float SOG, COG;
         private float TargetSOG, TargetCOG;
         private bool Started;
+        private DateTime StartedTime;
         private bool Finished;
         private int CurrentTry;
         public StateChanged OnStateChanged;
@@ -60,6 +68,7 @@ namespace ZigZagTest
             Finished = false;
             CurrentTime = new TimeSpan(0);
             CurrentTry = 0;
+            CurrentState = State.Preparation;
 
             NMEAParser.OnRotationUpdated += new UpdateCOG(this.RotationUpdated);
             NMEAParser.OnVelocityUpdated += new UpdateSOG(this.VelocityUpdated);
@@ -90,17 +99,51 @@ namespace ZigZagTest
             }
         }
 
-        public void Tick()
+        public bool Tick()
         {
-            if(Running())
+            if(Finished) return false;
+
+            if (Started)
             {
                 CurrentTime += new TimeSpan(0, 0, 0, 0, 100);
             }
 
             switch(CurrentState)
             {
-                case State.TurningLeft: 
+                case State.TurningLeft:
+                    if (!AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Left)) NextEvent();
+                    break;
 
+                case State.TurningRight:
+                    if (!AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Right)) NextEvent();
+                    break;
+
+                case State.RevertingLeft:
+                    if (AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Left)) NextEvent();
+                    break;
+
+
+                case State.RevertingRight:
+                    if (AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Right)) NextEvent();
+                    break;
+            }
+
+            return true;
+        }
+
+        private bool AngleInRange(float Angle, float TargetAngle, float Range, RangeSubset Subset)
+        {
+            float Difference = TargetAngle - Angle;
+            if (Difference > 180) Difference -= 180;
+
+            bool InLeft = Difference > -Range;
+            bool InRight = Difference < Range;
+
+            switch(Subset)
+            {
+                case RangeSubset.Left: return InLeft;
+                case RangeSubset.Right: return InRight;
+                case RangeSubset.Both: default: return InLeft || InRight;
             }
         }
 
@@ -108,15 +151,32 @@ namespace ZigZagTest
         {
             switch(CurrentState)
             {
-                case State.Preparation: CurrentState = State.TurningLeft; break;
+                case State.Preparation:
+                    CurrentState = State.TurningLeft;
+                    StartedTime = DateTime.UtcNow;
 
-                case State.TurningLeft: CurrentState = State.RevertingLeft; break;
+                    break;
 
-                case State.RevertingLeft: CurrentState = State.TurningRight; break;
+                case State.TurningLeft:
+                    CurrentState = State.RevertingLeft;
+                    Times[CurrentTry + 0] = DateTime.UtcNow - StartedTime;
 
-                case State.TurningRight: CurrentState = State.RevertingRight; break;
+                    break;
+
+                case State.RevertingLeft:
+                    CurrentState = State.TurningRight;
+                    Times[CurrentTry + 1] = DateTime.UtcNow - StartedTime;
+
+                    break;
+
+                case State.TurningRight:
+                    CurrentState = State.RevertingRight;
+                    Times[CurrentTry + 2] = DateTime.UtcNow - StartedTime;
+
+                    break;
 
                 case State.RevertingRight:
+                    Times[CurrentTry + 3] = DateTime.UtcNow - StartedTime;
 
                     CurrentTry++;
                     if (CurrentTry < Count) CurrentState = State.TurningLeft;
