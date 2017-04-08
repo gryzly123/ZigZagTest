@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
@@ -226,6 +227,16 @@ namespace ZigZagTest
         {
             ZigZagConfig Config = new ZigZagConfig();
             Config.ShowDialog();
+        }
+
+        private void Button_GenerateRaport_Click(object sender, EventArgs e)
+        {
+            FileStream SaveToFile = new FileStream("raport.txt", FileMode.Create, FileAccess.Write);
+            StreamWriter Saver = new StreamWriter(SaveToFile);
+
+            foreach (string Line in List_DataReadings.Items) Saver.WriteLine(Line);
+            Saver.Flush();
+            Saver.Close();
         }
     }
 }

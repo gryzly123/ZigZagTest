@@ -7,13 +7,15 @@ using System.Windows.Forms;
 
 namespace ZigZagTest
 {
-    public delegate void StateChanged(State NewState);
+    public delegate void StateChanged(State NewState, int CurrentTry, float TargetCOG, float TargetRudder);
 
     public enum RangeSubset
     {
-        Left,
-        Right,
-        Both
+        Inside,
+        Outside,
+        Before,
+        After,
+        NotEqual
     };
 
     public class ZigZagNomotoResult
@@ -47,7 +49,6 @@ namespace ZigZagTest
     {
         private int AngleRudder, AngleTurn, Count;
         private TimeSpan[] Times;
-        private TimeSpan CurrentTime;
         private State CurrentState;
         private float SOG, COG;
         private float TargetSOG, TargetCOG;
@@ -66,7 +67,6 @@ namespace ZigZagTest
 
             Started = false;
             Finished = false;
-            CurrentTime = new TimeSpan(0);
             CurrentTry = 0;
             CurrentState = State.Preparation;
 
@@ -85,7 +85,8 @@ namespace ZigZagTest
         }
 
         //interfejs
-        public bool Running() { return Started && !Finished; }
+        public bool NotStarted() { return !Started; }
+        public bool NotFinished() { return !Finished; }
 
         //kontrola symulacji
         public void Begin()
@@ -103,28 +104,23 @@ namespace ZigZagTest
         {
             if(Finished) return false;
 
-            if (Started)
-            {
-                CurrentTime += new TimeSpan(0, 0, 0, 0, 100);
-            }
-
             switch(CurrentState)
             {
                 case State.TurningLeft:
-                    if (!AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Left)) NextEvent();
+                    if (AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.After)) NextEvent();
                     break;
 
                 case State.TurningRight:
-                    if (!AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Right)) NextEvent();
+                    if (!AngleInRange(COG, TargetCOG, -AngleRudder, RangeSubset.After)) NextEvent();
                     break;
 
                 case State.RevertingLeft:
-                    if (AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Left)) NextEvent();
+                    if (AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Before)) NextEvent();
                     break;
 
 
                 case State.RevertingRight:
-                    if (AngleInRange(COG, TargetCOG, AngleRudder, RangeSubset.Right)) NextEvent();
+                    if (AngleInRange(COG, TargetCOG, -AngleRudder, RangeSubset.Before)) NextEvent();
                     break;
             }
 
@@ -136,19 +132,26 @@ namespace ZigZagTest
             float Difference = TargetAngle - Angle;
             if (Difference > 180) Difference -= 180;
 
-            bool InLeft = Difference > -Range;
-            bool InRight = Difference < Range;
+            bool InAfter = Difference > Range;
+            bool InBefore = Difference < 0;
+            bool InOutside = InAfter || InBefore;
+            bool InInside = !InOutside;
 
             switch(Subset)
             {
-                case RangeSubset.Left: return InLeft;
-                case RangeSubset.Right: return InRight;
-                case RangeSubset.Both: default: return InLeft || InRight;
+                case RangeSubset.Inside: return InInside;
+                case RangeSubset.Outside: return InOutside;
+                case RangeSubset.Before: return InBefore;
+                case RangeSubset.After: return InAfter;
+                case RangeSubset.NotEqual: return Difference != Range;
+                default: return false;
             }
         }
 
         private void NextEvent()
         {
+            MessageBox.Show("NextEvent()");
+
             switch(CurrentState)
             {
                 case State.Preparation:
@@ -187,7 +190,7 @@ namespace ZigZagTest
                     }
                     break;
             }
-                    OnStateChanged.Invoke(CurrentState);
+                    OnStateChanged.Invoke(CurrentState, CurrentTry, AngleRudder, AngleTurn);
         }
     }
 }

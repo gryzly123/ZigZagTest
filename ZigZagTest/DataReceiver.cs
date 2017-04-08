@@ -41,11 +41,10 @@ namespace ZigZagTest
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
 
             Configure();
-            while (!BreakLoop) ReadAsync();
+            Running = true;
             //  try
             //  {
-            //      Running = true;
-            //      while (!BreakLoop) ReadAsync();
+                    while (!BreakLoop) ReadAsync();
             //  }
             //  catch(Exception E)
             //  {

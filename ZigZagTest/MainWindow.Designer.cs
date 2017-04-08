@@ -656,6 +656,7 @@
             this.Button_GenerateRaport.TabIndex = 1;
             this.Button_GenerateRaport.Text = "Generuj raport";
             this.Button_GenerateRaport.UseVisualStyleBackColor = true;
+            this.Button_GenerateRaport.Click += new System.EventHandler(this.Button_GenerateRaport_Click);
             // 
             // groupBox2
             // 
