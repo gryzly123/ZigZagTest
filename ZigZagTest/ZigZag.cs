@@ -70,8 +70,8 @@ namespace ZigZagTest
             CurrentTry = 0;
             CurrentState = State.Preparation;
 
-            NMEAParser.OnRotationUpdated += new UpdateCOG(this.RotationUpdated);
-            NMEAParser.OnVelocityUpdated += new UpdateSOG(this.VelocityUpdated);
+            NMEAParser.OnCourseUpdated += new UpdateCOG(this.RotationUpdated);
+            NMEAParser.OnSpeedUpdated += new UpdateSOG(this.VelocityUpdated);
         }
 
         //delegaty

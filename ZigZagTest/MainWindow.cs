@@ -47,8 +47,10 @@ namespace ZigZagTest
 
             //konfiguracja HUDa
             NMEAParser.OnLocationUpdated = new UpdateLocation(HUD_UpdateLocation);
-            NMEAParser.OnRotationUpdated = new UpdateCOG(HUD_UpdateCourse);
-            NMEAParser.OnVelocityUpdated = new UpdateSOG(HUD_UpdateSpeed);
+            NMEAParser.OnCourseUpdated = new UpdateCOG(HUD_UpdateCourse);
+            NMEAParser.OnHeadingUpdated = new UpdateHDT(HUD_UpdateHeading);
+            NMEAParser.OnSatelliteUpdated = new UpdateSat(HUD_UpdateSatCount);
+            NMEAParser.OnSpeedUpdated = new UpdateSOG(HUD_UpdateSpeed);
         }
 
         private void HUD_UpdateLocation(float Lat, float Lon)
@@ -62,9 +64,19 @@ namespace ZigZagTest
             HUD_COG.Invoke(new Action(() => HUD_COG.Text = COG.ToString("0.0") + " deg"));
         }
 
+        private void HUD_UpdateHeading(float HDT)
+        {
+            HUD_Heading.Invoke(new Action(() => HUD_Heading.Text = HDT.ToString("0.0") + " deg"));
+        }
+
         private void HUD_UpdateSpeed(float SOG)
         {
             HUD_SOG.Invoke(new Action(() => HUD_SOG.Text = SOG.ToString("0.0") + " kn"));
+        }
+
+        private void HUD_UpdateSatCount(int SatCount)
+        {
+            HUD_SatCount.Invoke(new Action(() => HUD_SatCount.Text = SatCount.ToString()));
         }
 
         private void UDPIP_ValidateTextChange(object sender, EventArgs e)

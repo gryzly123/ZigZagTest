@@ -78,8 +78,8 @@ namespace ZigZagTest
             DataSnapshots = new List<GPSData>();
             FirstRecord = DateTime.UtcNow;
             NMEAParser.OnLocationUpdated = new UpdateLocation(CurrentState.UpdateLocation);
-            NMEAParser.OnRotationUpdated = new UpdateCOG(CurrentState.UpdateSpeed);
-            NMEAParser.OnVelocityUpdated = new UpdateSOG(CurrentState.UpdateCourse);
+            NMEAParser.OnCourseUpdated = new UpdateCOG(CurrentState.UpdateSpeed);
+            NMEAParser.OnSpeedUpdated = new UpdateSOG(CurrentState.UpdateCourse);
             CurrentState.OnStructureUpdate = UpdateHUD;
 
             Tick = new Timer();

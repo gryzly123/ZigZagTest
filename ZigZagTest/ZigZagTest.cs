@@ -22,20 +22,20 @@ namespace ZigZagTest
             Test = CurrentTest;
             Test.OnStateChanged = new StateChanged(SetNewInstructions);
 
-            NMEAParser.OnRotationUpdated += new UpdateCOG(this.RotationUpdated);
-            NMEAParser.OnVelocityUpdated += new UpdateSOG(this.VelocityUpdated);
+            NMEAParser.OnCourseUpdated += new UpdateCOG(this.RotationUpdated);
+            NMEAParser.OnSpeedUpdated += new UpdateSOG(this.VelocityUpdated);
         }
 
         ~ZigZagTest()
         {
-            foreach(Delegate D in NMEAParser.OnRotationUpdated.GetInvocationList())
+            foreach(Delegate D in NMEAParser.OnCourseUpdated.GetInvocationList())
             {
-                if (D.Target == this) NMEAParser.OnRotationUpdated -= (UpdateCOG)D;
+                if (D.Target == this) NMEAParser.OnCourseUpdated -= (UpdateCOG)D;
             }
 
-            foreach (Delegate D in NMEAParser.OnVelocityUpdated.GetInvocationList())
+            foreach (Delegate D in NMEAParser.OnSpeedUpdated.GetInvocationList())
             {
-                if (D.Target == this) NMEAParser.OnVelocityUpdated -= (UpdateSOG)D;
+                if (D.Target == this) NMEAParser.OnSpeedUpdated -= (UpdateSOG)D;
             }
 
             MessageBox.Show("ŻigZagTest()");

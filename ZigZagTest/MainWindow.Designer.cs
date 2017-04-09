@@ -62,6 +62,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.List_DataReadings = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.HUD_Heading = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
             this.HUD_COG = new System.Windows.Forms.Label();
             this.HUD_SOG = new System.Windows.Forms.Label();
             this.HUD_Lon = new System.Windows.Forms.Label();
@@ -83,6 +85,8 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.SerialPortSingleton = new System.IO.Ports.SerialPort(this.components);
+            this.HUD_SatCount = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.MainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Group_ConfigureSerial.SuspendLayout();
@@ -452,9 +456,9 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.List_DataReadings);
-            this.groupBox1.Location = new System.Drawing.Point(3, 87);
+            this.groupBox1.Location = new System.Drawing.Point(3, 105);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(301, 247);
+            this.groupBox1.Size = new System.Drawing.Size(301, 229);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Odczyty";
@@ -464,11 +468,15 @@
             this.List_DataReadings.FormattingEnabled = true;
             this.List_DataReadings.Location = new System.Drawing.Point(9, 19);
             this.List_DataReadings.Name = "List_DataReadings";
-            this.List_DataReadings.Size = new System.Drawing.Size(286, 147);
+            this.List_DataReadings.Size = new System.Drawing.Size(286, 199);
             this.List_DataReadings.TabIndex = 0;
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.HUD_SatCount);
+            this.groupBox3.Controls.Add(this.label19);
+            this.groupBox3.Controls.Add(this.HUD_Heading);
+            this.groupBox3.Controls.Add(this.label18);
             this.groupBox3.Controls.Add(this.HUD_COG);
             this.groupBox3.Controls.Add(this.HUD_SOG);
             this.groupBox3.Controls.Add(this.HUD_Lon);
@@ -479,10 +487,28 @@
             this.groupBox3.Controls.Add(this.label11);
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(301, 78);
+            this.groupBox3.Size = new System.Drawing.Size(301, 96);
             this.groupBox3.TabIndex = 0;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Heads up";
+            // 
+            // HUD_Heading
+            // 
+            this.HUD_Heading.AutoSize = true;
+            this.HUD_Heading.Location = new System.Drawing.Point(218, 69);
+            this.HUD_Heading.Name = "HUD_Heading";
+            this.HUD_Heading.Size = new System.Drawing.Size(10, 13);
+            this.HUD_Heading.TabIndex = 10;
+            this.HUD_Heading.Text = "-";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(158, 69);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(47, 13);
+            this.label18.TabIndex = 9;
+            this.label18.Text = "Heading";
             // 
             // HUD_COG
             // 
@@ -676,6 +702,24 @@
             this.dataGridView1.Size = new System.Drawing.Size(289, 225);
             this.dataGridView1.TabIndex = 0;
             // 
+            // HUD_SatCount
+            // 
+            this.HUD_SatCount.AutoSize = true;
+            this.HUD_SatCount.Location = new System.Drawing.Point(66, 69);
+            this.HUD_SatCount.Name = "HUD_SatCount";
+            this.HUD_SatCount.Size = new System.Drawing.Size(10, 13);
+            this.HUD_SatCount.TabIndex = 12;
+            this.HUD_SatCount.Text = "-";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 69);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(49, 13);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Satellites";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -762,6 +806,10 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox UDP_Any;
+        private System.Windows.Forms.Label HUD_Heading;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label HUD_SatCount;
+        private System.Windows.Forms.Label label19;
     }
 }
 
