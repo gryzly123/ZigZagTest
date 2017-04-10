@@ -40,6 +40,7 @@
             this.Label_SOG = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.ZigZag_Timer = new System.Windows.Forms.Timer(this.components);
+            this.Label_Log = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Label_Instruction
@@ -148,11 +149,21 @@
             this.ZigZag_Timer.Enabled = true;
             this.ZigZag_Timer.Tick += new System.EventHandler(this.ZigZag_Timer_Tick);
             // 
+            // Label_Log
+            // 
+            this.Label_Log.AutoSize = true;
+            this.Label_Log.Location = new System.Drawing.Point(12, 417);
+            this.Label_Log.Name = "Label_Log";
+            this.Label_Log.Size = new System.Drawing.Size(57, 13);
+            this.Label_Log.TabIndex = 10;
+            this.Label_Log.Text = "Label_Log";
+            // 
             // ZigZagTest
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(451, 417);
+            this.ClientSize = new System.Drawing.Size(451, 442);
+            this.Controls.Add(this.Label_Log);
             this.Controls.Add(this.Label_SOG);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.Label_RelativeCourse);
@@ -184,5 +195,6 @@
         private System.Windows.Forms.Label Label_SOG;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Timer ZigZag_Timer;
+        private System.Windows.Forms.Label Label_Log;
     }
 }
