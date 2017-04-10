@@ -92,5 +92,12 @@ namespace ZigZagTest
         {
             DataSnapshots.Add(CurrentState.Clone());
         }
+
+        public List<GPSData> GetSnapshotsUpToThisPoint()
+        {
+            return new List<GPSData>(DataSnapshots);
+        }
+
+        public DateTime GetFirstRecord() { return FirstRecord; }
     }
 }

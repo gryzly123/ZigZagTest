@@ -32,6 +32,11 @@ namespace ZigZagTest
             this.K = K;
             this.DC = DC;
         }
+
+        public string GetResult()
+        {
+            return "\nT:  " + T.ToString() + "\nK:  " + K.ToString() + "\ndC: " + DC.ToString()+"\n\n";
+        }
     }
 
     public enum State
@@ -47,19 +52,16 @@ namespace ZigZagTest
 
     public class ZigZag
     {
-        private int AngleRudder, AngleTurn, Count;
-        private TimeSpan[] Times;
-        private State CurrentState;
-        private float SOG, COG;
-        private int CourseIterationSwap;
-        private float TargetSOG, TargetCOG;
-        private bool Started;
-        private DateTime StartedTime;
-        private bool Finished;
-        private int CurrentTry;
-        public StateChanged OnStateChanged;
-
-        private float ElevatedTargetCOG, ElevatedLeftCOG, ElevatedRightCOG;
+        private int AngleRudder, AngleTurn, Count;              //zmienne konfiguracyjne próby
+        private TimeSpan[] Times;                               //zmienne wynikowe próby
+        private float SOG, COG;                                 //chwilowe wartości prędkości i kąta ze źródła danych
+        private float TargetSOG, TargetCOG;                     //docelowe wartości prędkości i kąta
+        private float RelativeCourseAngle;                      //zależny kąt od początku próby na podstawie którego podejmowana jest decyzja o odbiciu
+        private int CurrentTry;                                 //numer obecnego zawrotu
+        private State CurrentState;                             //obecny stan w maszynie stanu próby
+        private bool Started, Finished;                         //zmienne pomocnicze stanu próby
+        private DateTime StartedTime;                           //czas w UTC od rozpoczęcia próby
+        public StateChanged OnStateChanged;                     //delegata wysyłająca zmianę stanu próby dla okna instrukcji
 
         public ZigZag(int AngleRudder, int AngleTurn, int Count)
         {
@@ -72,7 +74,6 @@ namespace ZigZagTest
             Finished = false;
             CurrentTry = 0;
             CurrentState = State.Preparation;
-            CourseIterationSwap = 0;
 
             NMEAParser.OnCourseUpdated += new UpdateCOG(this.RotationUpdated);
             NMEAParser.OnSpeedUpdated += new UpdateSOG(this.VelocityUpdated);
@@ -81,14 +82,11 @@ namespace ZigZagTest
         //delegaty
         private void RotationUpdated(float COG)
         {
-            //if (this.COG < 10 && COG > 350) CourseIterationSwap--;
-            //else if (this.COG > 350 && COG < 10) CourseIterationSwap++;
-
-            float Difference = (CourseIterationSwap * COG) - this.COG;
-            if (Difference >  300) CourseIterationSwap++;
-            if (Difference < -300) CourseIterationSwap--;
-
-            this.COG = COG + (CourseIterationSwap * 360.0f);
+            float CourseChange = COG - this.COG;
+            if (CourseChange > 350) CourseChange -= 360;
+            if (CourseChange < -350) CourseChange += 350;
+            RelativeCourseAngle += CourseChange;
+            this.COG = COG;
         }
 
         private void VelocityUpdated(float SOG)
@@ -99,6 +97,7 @@ namespace ZigZagTest
         //interfejs
         public bool NotStarted() { return !Started; }
         public bool NotFinished() { return !Finished; }
+        public float GetRelativeCOG() { return RelativeCourseAngle; }
 
         //kontrola symulacji
         public void Begin()
@@ -108,11 +107,7 @@ namespace ZigZagTest
                 Started = true;
                 TargetSOG = SOG;
                 TargetCOG = COG;
-
-                ElevatedTargetCOG = TargetCOG + 360.0f;
-                ElevatedLeftCOG   = TargetCOG + 360.0f - AngleTurn;
-                ElevatedRightCOG  = TargetCOG + 360.0f + AngleTurn;
-
+                RelativeCourseAngle = 0;
                 NextEvent();
             }
         }
@@ -124,57 +119,27 @@ namespace ZigZagTest
             switch(CurrentState)
             {
                 case State.TurningLeft:
-                    if ((COG + 360.0f) < ElevatedLeftCOG) NextEvent();
-                    else ZigZagTest.PrintToTestWindow.Invoke((COG + 360.0f).ToString() + " < " + ElevatedLeftCOG.ToString());
+                    if (RelativeCourseAngle < -AngleTurn) NextEvent();
                     break;
 
                 case State.TurningRight:
-                    if ((COG + 360.0f) > ElevatedRightCOG) NextEvent();
-                    else ZigZagTest.PrintToTestWindow.Invoke((COG + 360.0f).ToString() + " > " + ElevatedRightCOG.ToString());
+                    if (RelativeCourseAngle > AngleTurn) NextEvent();
                     break;
 
                 case State.RevertingLeft:
-                    if ((COG + 360.0f) > ElevatedLeftCOG) NextEvent();
-                    else ZigZagTest.PrintToTestWindow.Invoke((COG + 360.0f).ToString() + " > " + ElevatedLeftCOG.ToString());
+                    if (RelativeCourseAngle > -AngleTurn) NextEvent();
                     break;
 
                 case State.RevertingRight:
-                    if ((COG + 360.0f) < ElevatedRightCOG) NextEvent();
-                    else ZigZagTest.PrintToTestWindow.Invoke((COG + 360.0f).ToString() + " < " + ElevatedRightCOG.ToString());
+                    if (RelativeCourseAngle < AngleTurn) NextEvent();
                     break;
             }
 
             return true;
         }
 
-
-
-        [Obsolete]
-        private bool AngleInRange(float Angle, float TargetAngle, float Range, RangeSubset Subset)
-        {
-            float Difference = TargetAngle - Angle;
-            if (Difference > 180) Difference -= 180;
-
-            bool InAfter = Difference > Range;
-            bool InBefore = Difference < 0;
-            bool InOutside = InAfter || InBefore;
-            bool InInside = !InOutside;
-
-            switch(Subset)
-            {
-                case RangeSubset.Inside: return InInside;
-                case RangeSubset.Outside: return InOutside;
-                case RangeSubset.Before: return InBefore;
-                case RangeSubset.After: return InAfter;
-                case RangeSubset.NotEqual: return Difference != Range;
-                default: return false;
-            }
-        }
-
         private void NextEvent()
         {
-            MessageBox.Show("NextEvent()");
-
             switch(CurrentState)
             {
                 case State.Preparation:
@@ -213,7 +178,16 @@ namespace ZigZagTest
                     }
                     break;
             }
-                    OnStateChanged.Invoke(CurrentState, CurrentTry, AngleRudder, AngleTurn);
+
+            OnStateChanged.Invoke(CurrentState, CurrentTry, AngleTurn, AngleRudder);
+            MessageBox.Show("NextEvent()");
         }
+
+        //metody do pobierania danych przez kontener raportu
+        public TimeSpan[] RC_GetTimes() { return Times; }
+        public DateTime RC_GetStart() { return StartedTime; }
+        public int RC_GetTryCount() { return Count; }
+        public int RC_GetRudder() { return AngleRudder; }
+        public int RC_GetTurn() { return AngleTurn; }
     }
 }

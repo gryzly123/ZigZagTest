@@ -36,20 +36,20 @@ namespace ZigZagTest
 
         private void AyncReader_DoWork(object sender, DoWorkEventArgs Args)
         {
+            //konfiguracja kropek i przecinków
             System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
 
             Configure();
             Running = true;
-            //  try
-            //  {
-                    while (!BreakLoop) ReadAsync();
-            //  }
-            //  catch(Exception E)
-            //  {
-            //      ReactToException(E);
-            //  }
+
+            while (!BreakLoop)
+            {
+                try { ReadAsync(); }
+                catch (Exception E) { ReactToException(E); }
+            }
+
             Running = false;
             Cleanup();
         }
@@ -60,7 +60,7 @@ namespace ZigZagTest
         }
         protected void ReactToException(Exception E)
         {
-            MessageBox.Show(E.Message);
+            OnDataReceived.Invoke("Error: " + E.ToString());
         }
 
         //przeciążalne metody implementujące ścieżki komunikacji faktycznego Receivera, np. UDP
@@ -92,13 +92,9 @@ namespace ZigZagTest
         {
             UDPManager = new UdpClient(Port);
             UDPEndpoint = new IPEndPoint(IP, Port);
-            //UDPManager.Connect(UDPEndpoint);
         }
 
-        protected override void Cleanup()
-        {
-            //UDPManager.Close();
-        }
+        protected override void Cleanup() { }
 
         protected override void ReadAsync()
         {

@@ -69,8 +69,8 @@ namespace ZigZagTest
 
         private void UpdateLabels()
         {
-            Label_COG.Invoke            (new Action(() => { if (COG >= 0) Label_COG.Text = COG.ToString("0.0") + " deg";                                                          }));
-            Label_RelativeCourse.Invoke (new Action(() => { Label_RelativeCourse.Text = (!Test.NotStarted()) ? CurrentCOG.ToString("0.0") + " deg" : "-";                            }));
+            Label_COG.Invoke            (new Action(() => { if (Test.NotStarted()) Label_COG.Text = COG.ToString("0.0") + " deg";                                                    }));
+            Label_RelativeCourse.Invoke (new Action(() => { Label_RelativeCourse.Text = (!Test.NotStarted()) ? Test.GetRelativeCOG().ToString("0.0") + " deg" : "-";                 }));
             Label_SOG.Invoke            (new Action(() => { Label_SOG.Text = SOG.ToString("0.0") + " kn " + ((!Test.NotStarted()) ? "(" + CurrentSOG.ToString("0.0") + " kn)" : ""); }));
         }
 

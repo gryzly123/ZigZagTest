@@ -30,7 +30,7 @@ namespace ZigZagTest
         {
             InitializeComponent();
 
-            //zawsze używaj kropek zamiast przecinków
+            //zawsze używaj kropek zamiast przecinków (ustawiane per wątek)
             System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
             customCulture.NumberFormat.NumberDecimalSeparator = ".";
             System.Threading.Thread.CurrentThread.CurrentCulture = customCulture;
@@ -135,7 +135,7 @@ namespace ZigZagTest
                 case ConnectionType.None:
                     Group_ConfigureUDP.Enabled = false;
                     Group_ConfigureSerial.Enabled = false;
-                    Button_Connect.Enabled = false;
+                    Button_Connect.Enabled = true;
                     break;
 
                 case ConnectionType.ConnectedNow:
@@ -156,6 +156,7 @@ namespace ZigZagTest
 
                     AppGlobals.CurrentDataReceiver.StopReading();
                     Button_Connect.Text = "Połącz";
+                    SelectedConnectionType = (Configuration_UDP.Checked) ? ConnectionType.UDP : ConnectionType.Serial;
                     ConfigurationScreen_UpdateGroups();
                     return;
             }

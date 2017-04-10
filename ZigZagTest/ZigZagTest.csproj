@@ -59,6 +59,7 @@
     <Compile Include="NMEAParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RaportContainer.cs" />
     <Compile Include="ZigZag.cs" />
     <Compile Include="ZigZagTest.cs">
       <SubType>Form</SubType>
