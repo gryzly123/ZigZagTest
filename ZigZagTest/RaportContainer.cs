@@ -1,20 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ZigZagTest
 {
     public class RaportContainer
     {
-        float RudderAngle, TurnAngle;
-        TimeSpan[] Times;
-        int TryCount;
-        ZigZagNomotoResult Result;
-        DateTime StartTime;
-        List<GPSData> DataSnapshots;
+        private float RudderAngle, TurnAngle;
+        private TimeSpan[] Times;
+        private int TryCount;
+        private ZigZagNomotoResult Result;
+        private DateTime StartTime;
+        private List<GPSData> DataSnapshots;
 
+        public TimeSpan[] GetTimes() { return Times; }
 
         public RaportContainer(ZigZag Data)
         {
@@ -36,9 +34,9 @@ namespace ZigZagTest
         {
             string Raport = "Raport próby wężowej\n\n\n";
             Raport += "Próba została przeprowadzona " + StartTime.ToString()
-                    + ". Wykonano " + TryCount.ToString() + "par manewrów, dla których"
+                    + ". Wykonano " + TryCount.ToString() + "manewrów, dla których"
                     + " nastawa steru wynosiła " + RudderAngle.ToString() + " stopni, a statek "
-                    + "wychylał się o kąt" + TurnAngle.ToString() + " stopni (względnem dna). "
+                    + "wychylał się o kąt " + TurnAngle.ToString() + " stopni (względnem dna)."
                     + "\n\n Czasy odbić:\n\nOdbicie\tDorównanie\n\n";
 
             for(int i = 0; i < TryCount / 2; i++)
@@ -61,8 +59,9 @@ namespace ZigZagTest
                 j++;
             }
 
-            Raport += "\n\nOtrzymane komunikaty NMEA0183:\n\n[todo]";
-            //todo: dodać komunikaty z okna głównego
+            Raport += "\n\nOtrzymane komunikaty NMEA0183:\n\n";
+
+            foreach (string Line in DataReceiver.GetLineHistory(-1)) Raport += Line + "\n";
 
             return Raport;
         }

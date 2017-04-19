@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace ZigZagTest
 {
@@ -157,30 +152,42 @@ namespace ZigZagTest
                 case State.RevertingLeft:
                     CurrentState = State.TurningRight;
                     Times[CurrentTry + 1] = DateTime.UtcNow - StartedTime;
+                    NextTry(State.TurningRight);
 
                     break;
 
                 case State.TurningRight:
                     CurrentState = State.RevertingRight;
-                    Times[CurrentTry + 2] = DateTime.UtcNow - StartedTime;
+                    Times[CurrentTry + 1] = DateTime.UtcNow - StartedTime;
 
                     break;
 
                 case State.RevertingRight:
-                    Times[CurrentTry + 3] = DateTime.UtcNow - StartedTime;
-
-                    CurrentTry++;
-                    if (CurrentTry < Count) CurrentState = State.TurningLeft;
-                    else
-                    {
-                        CurrentState = State.Finished;
-                        Finished = true;
-                    }
+                    Times[CurrentTry + 0] = DateTime.UtcNow - StartedTime;
+                    NextTry(State.TurningLeft);
                     break;
             }
 
             OnStateChanged.Invoke(CurrentState, CurrentTry, AngleTurn, AngleRudder);
-            MessageBox.Show("NextEvent()");
+        }
+
+        private void NextTry(State NewState)
+        {
+            CurrentTry++;
+
+            if (CurrentTry < Count) CurrentState = NewState;
+            else
+            {
+                CurrentState = State.Finished;
+                Finished = true;
+                Finish();
+            }
+        }
+
+        private void Finish()
+        {
+            AppGlobals.CurrentRaport = new RaportContainer(this);
+            
         }
 
         //metody do pobierania danych przez kontener raportu

@@ -62,6 +62,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.List_DataReadings = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.HUD_SatCount = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
             this.HUD_Heading = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
             this.HUD_COG = new System.Windows.Forms.Label();
@@ -83,10 +85,8 @@
             this.Button_BeginZigZag = new System.Windows.Forms.Button();
             this.Button_GenerateRaport = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.GridView_TestTimes = new System.Windows.Forms.DataGridView();
             this.SerialPortSingleton = new System.IO.Ports.SerialPort(this.components);
-            this.HUD_SatCount = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
             this.MainTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.Group_ConfigureSerial.SuspendLayout();
@@ -98,7 +98,7 @@
             this.tabPage3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridView_TestTimes)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTabControl
@@ -492,6 +492,24 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Heads up";
             // 
+            // HUD_SatCount
+            // 
+            this.HUD_SatCount.AutoSize = true;
+            this.HUD_SatCount.Location = new System.Drawing.Point(66, 69);
+            this.HUD_SatCount.Name = "HUD_SatCount";
+            this.HUD_SatCount.Size = new System.Drawing.Size(10, 13);
+            this.HUD_SatCount.TabIndex = 12;
+            this.HUD_SatCount.Text = "-";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 69);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(49, 13);
+            this.label19.TabIndex = 11;
+            this.label19.Text = "Satellites";
+            // 
             // HUD_Heading
             // 
             this.HUD_Heading.AutoSize = true;
@@ -676,6 +694,7 @@
             // 
             // Button_GenerateRaport
             // 
+            this.Button_GenerateRaport.Enabled = false;
             this.Button_GenerateRaport.Location = new System.Drawing.Point(157, 307);
             this.Button_GenerateRaport.Name = "Button_GenerateRaport";
             this.Button_GenerateRaport.Size = new System.Drawing.Size(147, 30);
@@ -686,7 +705,7 @@
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Controls.Add(this.GridView_TestTimes);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(301, 250);
@@ -694,31 +713,13 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Statystyki ostatniej próby";
             // 
-            // dataGridView1
+            // GridView_TestTimes
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(6, 19);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(289, 225);
-            this.dataGridView1.TabIndex = 0;
-            // 
-            // HUD_SatCount
-            // 
-            this.HUD_SatCount.AutoSize = true;
-            this.HUD_SatCount.Location = new System.Drawing.Point(66, 69);
-            this.HUD_SatCount.Name = "HUD_SatCount";
-            this.HUD_SatCount.Size = new System.Drawing.Size(10, 13);
-            this.HUD_SatCount.TabIndex = 12;
-            this.HUD_SatCount.Text = "-";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 69);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(49, 13);
-            this.label19.TabIndex = 11;
-            this.label19.Text = "Satellites";
+            this.GridView_TestTimes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.GridView_TestTimes.Location = new System.Drawing.Point(6, 19);
+            this.GridView_TestTimes.Name = "GridView_TestTimes";
+            this.GridView_TestTimes.Size = new System.Drawing.Size(289, 225);
+            this.GridView_TestTimes.TabIndex = 0;
             // 
             // MainWindow
             // 
@@ -745,7 +746,7 @@
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.GridView_TestTimes)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -786,7 +787,7 @@
         private System.Windows.Forms.TextBox UDP_IP2;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView GridView_TestTimes;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label HUD_COG;
         private System.Windows.Forms.Label HUD_SOG;

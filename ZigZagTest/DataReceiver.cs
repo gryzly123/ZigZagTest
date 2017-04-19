@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO.Ports;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using System.Windows.Forms;
 
 namespace ZigZagTest
 {
@@ -14,11 +14,27 @@ namespace ZigZagTest
     {
         //dane Receivera
         private BackgroundWorker AsyncReaderThread;
-        protected static ReceiveLine OnDataReceived = new ReceiveLine(NMEAParser.ParseLine);
+        protected ReceiveLine OnDataReceived = new ReceiveLine(NMEAParser.ParseLine) + new ReceiveLine(DataReceiver.AddLine);
         private bool BreakLoop = false;
         private bool Running = false;
+        private static List<string> LineHistory = new List<string>();
 
         public bool IsRunning() { return !BreakLoop; }
+
+        private static void AddLine(string Line)
+        {
+            LineHistory.Add(DateTime.UtcNow.ToString() + " :: " + Line);
+        }
+
+        public static List<string> GetLineHistory(int Count)
+        {
+            List<string> Result = new List<string>();
+            int LimitUp = LineHistory.Count;
+            int LimitDown = (Count == -1) ? 0 : LimitUp - Count;
+            LimitDown = (LimitDown < 0) ? 0 : LimitDown;
+            for (int i = LimitDown; i < LimitUp; i++) Result.Add(LineHistory[i]);
+            return Result;
+        }
 
         public void AddDelegateOnDataReceived(ReceiveLine NewDelegate)
         {

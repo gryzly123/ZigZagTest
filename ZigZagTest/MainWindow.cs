@@ -1,14 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ZigZagTest
@@ -29,6 +24,7 @@ namespace ZigZagTest
         public MainWindow()
         {
             InitializeComponent();
+            AppGlobals.AppReference = this;
 
             //zawsze używaj kropek zamiast przecinków (ustawiane per wątek)
             System.Globalization.CultureInfo customCulture = (System.Globalization.CultureInfo)System.Threading.Thread.CurrentThread.CurrentCulture.Clone();
@@ -45,7 +41,7 @@ namespace ZigZagTest
             Serial_StopBits.SelectedIndex = 0;
             Serial_Handshake.SelectedIndex = 0;
 
-            //konfiguracja HUDa
+            //konfiguracja delegat HUDa
             NMEAParser.OnLocationUpdated = new UpdateLocation(HUD_UpdateLocation);
             NMEAParser.OnCourseUpdated = new UpdateCOG(HUD_UpdateCourse);
             NMEAParser.OnHeadingUpdated = new UpdateHDT(HUD_UpdateHeading);
@@ -171,7 +167,13 @@ namespace ZigZagTest
 
         private void AddLine(string Line)
         {
-            List_DataReadings.Invoke(new Action(() => List_DataReadings.Items.Insert(0, Line)));
+            List<string> LineHistory = DataReceiver.GetLineHistory(10);
+            List_DataReadings.Invoke(new Action(() =>
+                {
+                    List_DataReadings.Items.Clear();
+                    foreach (string NMEALine in LineHistory) List_DataReadings.Items.Insert(0, NMEALine);
+                }
+            ));
         }
 
         private void CreateSerial()
@@ -247,9 +249,30 @@ namespace ZigZagTest
             FileStream SaveToFile = new FileStream("raport.txt", FileMode.Create, FileAccess.Write);
             StreamWriter Saver = new StreamWriter(SaveToFile);
 
-            foreach (string Line in List_DataReadings.Items) Saver.WriteLine(Line);
+            Saver.Write(AppGlobals.CurrentRaport.GenerateRaport());
             Saver.Flush();
             Saver.Close();
+        }
+
+        public void ReactToFinishedTest()
+        {
+            Button_GenerateRaport.Enabled = true;
+            AddResultsToGridView(AppGlobals.CurrentRaport.GetTimes());
+        }
+
+        private void AddResultsToGridView(TimeSpan[] Times)
+        {
+            //todo: przetestować
+            GridView_TestTimes.Columns.Add("Czas odbicia", "");
+            GridView_TestTimes.Columns.Add("Czas nawrotu", "");
+
+            int RowCount = Times.Count() / 2;
+            for (int i = 0; i < RowCount; i++)
+            {
+                GridView_TestTimes.Rows.Add(RowCount);
+                GridView_TestTimes.Rows[i * 2].Cells[0].Value = Times[i * 2].ToString(@"h\:mm\:ss\.f");
+                GridView_TestTimes.Rows[i * 2].Cells[1].Value = Times[i*2+1].ToString(@"h\:mm\:ss\.f");
+            }
         }
     }
 }

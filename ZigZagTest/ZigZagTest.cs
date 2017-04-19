@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace ZigZagTest
@@ -18,6 +11,7 @@ namespace ZigZagTest
         private DateTime StartTime;
         private float COG, CurrentCOG = -1.0f, SOG, CurrentSOG = -2.0f;
         public static DebugPrint PrintToTestWindow;
+        private bool TestFinished = false;
 
         public ZigZagTest(ZigZag CurrentTest)
         {
@@ -81,6 +75,11 @@ namespace ZigZagTest
                 Test.Begin();
                 StartTime = DateTime.UtcNow;
             }
+            else if(!Test.NotFinished())
+            {
+                AppGlobals.AppReference.ReactToFinishedTest();
+                this.Close();
+            }
         }
 
         private void ZigZag_Timer_Tick(object sender, EventArgs e)
@@ -94,7 +93,10 @@ namespace ZigZagTest
 
         private void FinishTest()
         {
-            throw new NotImplementedException();
+            Button_Begin.Enabled = true;
+            Button_Begin.Text = "Zakończ";
+            TestFinished = true;
+            
         }
 
         private void SetNewInstructions(State NewState, int CurrentTry, float TargetCOG, float TargetRudder)
@@ -119,7 +121,12 @@ namespace ZigZagTest
                 case State.RevertingRight:
                     Message = "Odbij ster na " + TargetRudder.ToString() + " stopni w lewo!";
                     break;
-            }
+
+                case State.Finished:
+                    Message = "Test zakończono.";
+                    FinishTest();
+                    break;
+                }
 
             Label_Instruction.Invoke(new Action(() => { Label_Instruction.Text = Message; }));
         }
