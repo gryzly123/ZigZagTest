@@ -71,6 +71,7 @@ namespace ZigZagTest
 
         public GPSManager(StructureUpdated UpdateHUD)
         {
+            AppGlobals.CurrentGPSManager = this;
             CurrentState = new GPSData();
             DataSnapshots = new List<GPSData>();
             FirstRecord = DateTime.UtcNow;

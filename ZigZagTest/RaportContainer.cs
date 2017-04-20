@@ -27,7 +27,8 @@ namespace ZigZagTest
 
         private ZigZagNomotoResult CalculateNomoto()
         {
-            throw new NotImplementedException();
+            //todo: policzyć nomoto
+            return new ZigZagNomotoResult(-1, -1, -1);
         }
 
         public string GenerateRaport()

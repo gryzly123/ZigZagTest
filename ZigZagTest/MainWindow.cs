@@ -269,7 +269,7 @@ namespace ZigZagTest
             int RowCount = Times.Count() / 2;
             for (int i = 0; i < RowCount; i++)
             {
-                GridView_TestTimes.Rows.Add(RowCount);
+                GridView_TestTimes.Rows.Add(1);
                 GridView_TestTimes.Rows[i * 2].Cells[0].Value = Times[i * 2].ToString(@"h\:mm\:ss\.f");
                 GridView_TestTimes.Rows[i * 2].Cells[1].Value = Times[i*2+1].ToString(@"h\:mm\:ss\.f");
             }
