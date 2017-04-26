@@ -44,24 +44,16 @@ namespace ZigZagTest
 
         private static bool Checksum(string Line)
         {
-            return true; //TODO: debug
-
             int Size = Line.Count();
-
             try
             {
                 string Message = Line.Substring(1, Size - 4);
                 string SumString = Line.Substring(Size - 2, 2);
                 int TargetSum = Convert.ToInt32(SumString, 16);
                 byte Sum = 0;
-
                 int MessageSize = Message.Length;
-                for (int k = 0; k < MessageSize; k++)
-                {
-                    byte Char = Convert.ToByte(Message[k]);
-                    Sum ^= Char;
-                }
-                if (Sum.Equals(TargetSum)) return true;
+                for (int k = 0; k < MessageSize; k++) Sum ^= Convert.ToByte(Message[k]);
+                if (Sum == TargetSum) return true;
             }
             catch { }
 

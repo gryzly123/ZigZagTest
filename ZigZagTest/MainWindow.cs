@@ -36,7 +36,7 @@ namespace ZigZagTest
             foreach (string Item in SerialPort.GetPortNames()) Serial_PortName.Items.Add(Item);
             if (Serial_PortName.Items.Count != 0) Serial_PortName.SelectedIndex = 0;
             else CanUseSerialPort = false;
-            Configuration_Serial.Enabled = false;
+            Configuration_Serial.Enabled = CanUseSerialPort;
             Serial_ParityCheck.SelectedIndex = 0;
             Serial_StopBits.SelectedIndex = 0;
             Serial_Handshake.SelectedIndex = 0;
@@ -264,15 +264,21 @@ namespace ZigZagTest
         private void AddResultsToGridView(TimeSpan[] Times)
         {
             //todo: przetestować
-            GridView_TestTimes.Columns.Add("Czas odbicia", "");
-            GridView_TestTimes.Columns.Add("Czas nawrotu", "");
+            GridView_TestTimes.Columns.Add("ID", "Nr");
+            GridView_TestTimes.Columns.Add("Odchylka", "Czas odchyłki");
+            GridView_TestTimes.Columns.Add("Zwrot", "Czas zwrotu");
+            GridView_TestTimes.Columns[0].Width = 26;
+            GridView_TestTimes.Columns[1].Width = 110;
+            GridView_TestTimes.Columns[2].Width = 110;
 
             int RowCount = Times.Count() / 2;
+            GridView_TestTimes.Rows.Add(RowCount - 1);
+
             for (int i = 0; i < RowCount; i++)
             {
-                GridView_TestTimes.Rows.Add(RowCount);
-                GridView_TestTimes.Rows[i * 2].Cells[0].Value = Times[i * 2].ToString(@"h\:mm\:ss\.f");
-                GridView_TestTimes.Rows[i * 2].Cells[1].Value = Times[i*2+1].ToString(@"h\:mm\:ss\.f");
+                GridView_TestTimes.Rows[i].Cells[0].Value = (i + 1).ToString();
+                GridView_TestTimes.Rows[i].Cells[1].Value = Times[i * 2].ToString(@"h\:mm\:ss\.f");
+                GridView_TestTimes.Rows[i].Cells[2].Value = Times[i*2+1].ToString(@"h\:mm\:ss\.f");
             }
         }
     }
