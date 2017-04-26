@@ -8,7 +8,6 @@ namespace ZigZagTest
         private float RudderAngle, TurnAngle;
         private TimeSpan[] Times;
         private int TryCount;
-        private ZigZagNomotoResult Result;
         private DateTime StartTime;
         private List<GPSData> DataSnapshots;
 
@@ -21,14 +20,7 @@ namespace ZigZagTest
             TurnAngle = Data.RC_GetTurn();
             TryCount = Data.RC_GetTryCount();
             StartTime = Data.RC_GetStart();
-            Result = CalculateNomoto();
             DataSnapshots = AppGlobals.CurrentGPSManager.GetSnapshotsUpToThisPoint();
-        }
-
-        private ZigZagNomotoResult CalculateNomoto()
-        {
-            //todo: policzyć nomoto
-            return new ZigZagNomotoResult(-1, -1, -1);
         }
 
         public string GenerateRaport()
@@ -45,15 +37,11 @@ namespace ZigZagTest
                 Raport += Times[2 * i].ToString() + "\t" + Times[2 * i + 1].ToString() + "\n";
             }
 
-            Raport += "\n\nZ otrzymanych wyników wyliczyć można następujące parametry dla symulacji "
-                   + " (model Nomoto): " + Result.GetResult();
-
             Raport += "Zmiany pozycji GPS:\n\n";
-
 
             DateTime FirstRecord = AppGlobals.CurrentGPSManager.GetFirstRecord();
             int j = 0;
-
+            
             foreach (GPSData Data in DataSnapshots)
             {
                 Raport += Data.GetLogString(FirstRecord, j);

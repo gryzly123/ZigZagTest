@@ -15,6 +15,8 @@ namespace ZigZagTest
         public float Latitude;
         public float COG;
         public float SOG;
+        public float Heading;
+        public int SatCount;
 
         public GPSData()
         {
@@ -22,6 +24,8 @@ namespace ZigZagTest
             Latitude = EMPTY;
             COG = EMPTY;
             SOG = EMPTY;
+            Heading = EMPTY;
+            SatCount = -1;
         }
 
         public void UpdateLocation(float Lat, float Lon)
@@ -38,6 +42,16 @@ namespace ZigZagTest
         public void UpdateCourse(float COG)
         {
             this.COG = COG;
+        }
+
+        public void UpdateHeading(float Heading)
+        {
+            this.Heading = Heading;
+        }
+
+        public void UpdateSateliteCount(int SatCount)
+        {
+            this.SatCount = SatCount;
         }
 
         public GPSData Clone()
@@ -69,16 +83,16 @@ namespace ZigZagTest
         DateTime FirstRecord;
         Timer Tick;
 
-        public GPSManager(StructureUpdated UpdateHUD)
+        public GPSManager()
         {
-            AppGlobals.CurrentGPSManager = this;
             CurrentState = new GPSData();
             DataSnapshots = new List<GPSData>();
             FirstRecord = DateTime.UtcNow;
             NMEAParser.OnLocationUpdated = new UpdateLocation(CurrentState.UpdateLocation);
             NMEAParser.OnCourseUpdated = new UpdateCOG(CurrentState.UpdateSpeed);
             NMEAParser.OnSpeedUpdated = new UpdateSOG(CurrentState.UpdateCourse);
-            CurrentState.OnStructureUpdate = UpdateHUD;
+            NMEAParser.OnHeadingUpdated = new UpdateHDT(CurrentState.UpdateHeading);
+            NMEAParser.OnSatelliteUpdated = new UpdateSat(CurrentState.UpdateSateliteCount);
 
             Tick = new Timer();
             Tick.Interval = 1000;

@@ -13,27 +13,6 @@ namespace ZigZagTest
         NotEqual
     };
 
-    public class ZigZagNomotoResult
-    {
-        private float T, K, DC;
-
-        public float GetT() { return T; }
-        public float GetK() { return K; }
-        public float GetDC() { return DC; }
-
-        public ZigZagNomotoResult(float T, float K, float DC)
-        {
-            this.T = T;
-            this.K = K;
-            this.DC = DC;
-        }
-
-        public string GetResult()
-        {
-            return "\nT:  " + T.ToString() + "\nK:  " + K.ToString() + "\ndC: " + DC.ToString()+"\n\n";
-        }
-    }
-
     public enum State
     {
         Preparation,    // ustawienie statku na stałą prędkość u0 przed testem

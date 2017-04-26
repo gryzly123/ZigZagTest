@@ -161,13 +161,14 @@ namespace ZigZagTest
             Button_Connect.Text = "Rozłącz";
             ConfigurationScreen_UpdateGroups();
 
+            AppGlobals.CurrentGPSManager = new GPSManager();
             AppGlobals.CurrentDataReceiver.AddDelegateOnDataReceived(new ReceiveLine(AddLine));
             AppGlobals.CurrentDataReceiver.StartReading();
         }
 
         private void AddLine(string Line)
         {
-            List<string> LineHistory = DataReceiver.GetLineHistory(10);
+            List<string> LineHistory = DataReceiver.GetLineHistory(15);
             List_DataReadings.Invoke(new Action(() =>
                 {
                     List_DataReadings.Items.Clear();
@@ -269,7 +270,7 @@ namespace ZigZagTest
             int RowCount = Times.Count() / 2;
             for (int i = 0; i < RowCount; i++)
             {
-                GridView_TestTimes.Rows.Add(1);
+                GridView_TestTimes.Rows.Add(RowCount);
                 GridView_TestTimes.Rows[i * 2].Cells[0].Value = Times[i * 2].ToString(@"h\:mm\:ss\.f");
                 GridView_TestTimes.Rows[i * 2].Cells[1].Value = Times[i*2+1].ToString(@"h\:mm\:ss\.f");
             }

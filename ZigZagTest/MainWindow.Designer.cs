@@ -75,13 +75,6 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
             this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
             this.Button_BeginZigZag = new System.Windows.Forms.Button();
             this.Button_GenerateRaport = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -96,7 +89,6 @@
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tabPage3.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GridView_TestTimes)).BeginInit();
             this.SuspendLayout();
@@ -465,10 +457,12 @@
             // 
             // List_DataReadings
             // 
+            this.List_DataReadings.Font = new System.Drawing.Font("Courier New", 7F);
             this.List_DataReadings.FormattingEnabled = true;
+            this.List_DataReadings.ItemHeight = 12;
             this.List_DataReadings.Location = new System.Drawing.Point(9, 19);
             this.List_DataReadings.Name = "List_DataReadings";
-            this.List_DataReadings.Size = new System.Drawing.Size(286, 199);
+            this.List_DataReadings.Size = new System.Drawing.Size(286, 196);
             this.List_DataReadings.TabIndex = 0;
             // 
             // groupBox3
@@ -602,7 +596,6 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.groupBox4);
             this.tabPage3.Controls.Add(this.Button_BeginZigZag);
             this.tabPage3.Controls.Add(this.Button_GenerateRaport);
             this.tabPage3.Controls.Add(this.groupBox2);
@@ -612,75 +605,6 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Próba wężowa";
             this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.label23);
-            this.groupBox4.Controls.Add(this.label24);
-            this.groupBox4.Controls.Add(this.label21);
-            this.groupBox4.Controls.Add(this.label22);
-            this.groupBox4.Controls.Add(this.label16);
-            this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Location = new System.Drawing.Point(4, 259);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(300, 42);
-            this.groupBox4.TabIndex = 3;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Wynik próby:";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(221, 20);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(10, 13);
-            this.label23.TabIndex = 5;
-            this.label23.Text = "-";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(198, 20);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(19, 13);
-            this.label24.TabIndex = 4;
-            this.label24.Text = "δc";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(128, 20);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(10, 13);
-            this.label21.TabIndex = 3;
-            this.label21.Text = "-";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(105, 20);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(16, 13);
-            this.label22.TabIndex = 2;
-            this.label22.Text = "k:";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(30, 20);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(10, 13);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "-";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(7, 20);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(17, 13);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "T:";
             // 
             // Button_BeginZigZag
             // 
@@ -708,7 +632,7 @@
             this.groupBox2.Controls.Add(this.GridView_TestTimes);
             this.groupBox2.Location = new System.Drawing.Point(3, 3);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(301, 250);
+            this.groupBox2.Size = new System.Drawing.Size(301, 298);
             this.groupBox2.TabIndex = 0;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Statystyki ostatniej próby";
@@ -718,7 +642,7 @@
             this.GridView_TestTimes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.GridView_TestTimes.Location = new System.Drawing.Point(6, 19);
             this.GridView_TestTimes.Name = "GridView_TestTimes";
-            this.GridView_TestTimes.Size = new System.Drawing.Size(289, 225);
+            this.GridView_TestTimes.Size = new System.Drawing.Size(289, 273);
             this.GridView_TestTimes.TabIndex = 0;
             // 
             // MainWindow
@@ -743,8 +667,6 @@
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.tabPage3.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.GridView_TestTimes)).EndInit();
             this.ResumeLayout(false);
@@ -799,13 +721,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.ListBox List_DataReadings;
         private System.Windows.Forms.Button Button_BeginZigZag;
-        private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label16;
-        private System.Windows.Forms.Label label15;
         private System.Windows.Forms.CheckBox UDP_Any;
         private System.Windows.Forms.Label HUD_Heading;
         private System.Windows.Forms.Label label18;
