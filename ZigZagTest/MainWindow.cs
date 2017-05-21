@@ -247,7 +247,20 @@ namespace ZigZagTest
 
         private void Button_GenerateRaport_Click(object sender, EventArgs e)
         {
-            FileStream SaveToFile = new FileStream("raport.txt", FileMode.Create, FileAccess.Write);
+            SaveFileDialog DialogWindow = new SaveFileDialog();
+            DialogWindow.Title = "Wybierz miejsce zapisu i nazwę raportu";
+            DialogWindow.FileName = "Raport.txt";
+            DialogWindow.DefaultExt = "txt";
+            DialogWindow.FileOk += PerformRaportSave;
+            DialogWindow.ShowDialog();
+        }
+
+        private void PerformRaportSave(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (e.Cancel) return;
+
+            SaveFileDialog SenderRef = (SaveFileDialog)sender;
+            FileStream SaveToFile = (FileStream)SenderRef.OpenFile();
             StreamWriter Saver = new StreamWriter(SaveToFile);
 
             Saver.Write(AppGlobals.CurrentRaport.GenerateRaport());

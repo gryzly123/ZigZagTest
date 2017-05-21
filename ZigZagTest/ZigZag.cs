@@ -42,7 +42,7 @@ namespace ZigZagTest
             this.AngleRudder = AngleRudder;
             this.AngleTurn = AngleTurn;
             this.Count = Count;
-            Times = new TimeSpan[4 * Count];
+            Times = new TimeSpan[2 * Count];
 
             Started = false;
             Finished = false;
@@ -124,25 +124,25 @@ namespace ZigZagTest
 
                 case State.TurningLeft:
                     CurrentState = State.RevertingLeft;
-                    Times[CurrentTry + 0] = DateTime.UtcNow - StartedTime;
+                    Times[2 * CurrentTry + 0] = DateTime.UtcNow - StartedTime;
 
                     break;
 
                 case State.RevertingLeft:
                     CurrentState = State.TurningRight;
-                    Times[CurrentTry + 1] = DateTime.UtcNow - StartedTime;
+                    Times[2 * CurrentTry + 1] = DateTime.UtcNow - StartedTime;
                     NextTry(State.TurningRight);
 
                     break;
 
                 case State.TurningRight:
                     CurrentState = State.RevertingRight;
-                    Times[CurrentTry + 1] = DateTime.UtcNow - StartedTime;
+                    Times[2 * CurrentTry + 1] = DateTime.UtcNow - StartedTime;
 
                     break;
 
                 case State.RevertingRight:
-                    Times[CurrentTry + 0] = DateTime.UtcNow - StartedTime;
+                    Times[2 * CurrentTry + 0] = DateTime.UtcNow - StartedTime;
                     NextTry(State.TurningLeft);
                     break;
             }
@@ -166,7 +166,6 @@ namespace ZigZagTest
         private void Finish()
         {
             AppGlobals.CurrentRaport = new RaportContainer(this);
-            
         }
 
         //metody do pobierania danych przez kontener raportu

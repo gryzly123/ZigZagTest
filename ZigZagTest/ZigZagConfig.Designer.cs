@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.Label_Angle2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.Trackbar_Angle2 = new System.Windows.Forms.TrackBar();
             this.Label_Count = new System.Windows.Forms.Label();
             this.Trackbar_Count = new System.Windows.Forms.TrackBar();
             this.label3 = new System.Windows.Forms.Label();
@@ -36,13 +39,10 @@
             this.Trackbar_Angle = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.Button_Start = new System.Windows.Forms.Button();
-            this.Trackbar_Angle2 = new System.Windows.Forms.TrackBar();
-            this.Label_Angle2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Trackbar_Angle2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Trackbar_Count)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Trackbar_Angle)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Trackbar_Angle2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -62,6 +62,35 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ustawienia próby";
+            // 
+            // Label_Angle2
+            // 
+            this.Label_Angle2.Location = new System.Drawing.Point(12, 80);
+            this.Label_Angle2.Name = "Label_Angle2";
+            this.Label_Angle2.Size = new System.Drawing.Size(126, 13);
+            this.Label_Angle2.TabIndex = 8;
+            this.Label_Angle2.Text = "20 deg";
+            this.Label_Angle2.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(26, 67);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(112, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Kąt względem dna (δ):";
+            // 
+            // Trackbar_Angle2
+            // 
+            this.Trackbar_Angle2.Location = new System.Drawing.Point(144, 67);
+            this.Trackbar_Angle2.Maximum = 7;
+            this.Trackbar_Angle2.Minimum = 4;
+            this.Trackbar_Angle2.Name = "Trackbar_Angle2";
+            this.Trackbar_Angle2.Size = new System.Drawing.Size(120, 45);
+            this.Trackbar_Angle2.TabIndex = 6;
+            this.Trackbar_Angle2.Value = 7;
+            this.Trackbar_Angle2.Scroll += new System.EventHandler(this.Trackbar_Scroll);
             // 
             // Label_Count
             // 
@@ -114,11 +143,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 16);
+            this.label1.Location = new System.Drawing.Point(42, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(107, 13);
+            this.label1.Size = new System.Drawing.Size(97, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Wychylenie nastawy:";
+            this.label1.Text = "Kąt ustalania steru:";
             // 
             // Button_Start
             // 
@@ -129,35 +158,6 @@
             this.Button_Start.Text = "Rozpocznij";
             this.Button_Start.UseVisualStyleBackColor = true;
             this.Button_Start.Click += new System.EventHandler(this.Button_Start_Click);
-            // 
-            // Trackbar_Angle2
-            // 
-            this.Trackbar_Angle2.Location = new System.Drawing.Point(144, 67);
-            this.Trackbar_Angle2.Maximum = 7;
-            this.Trackbar_Angle2.Minimum = 4;
-            this.Trackbar_Angle2.Name = "Trackbar_Angle2";
-            this.Trackbar_Angle2.Size = new System.Drawing.Size(120, 45);
-            this.Trackbar_Angle2.TabIndex = 6;
-            this.Trackbar_Angle2.Value = 7;
-            this.Trackbar_Angle2.Scroll += new System.EventHandler(this.Trackbar_Scroll);
-            // 
-            // Label_Angle2
-            // 
-            this.Label_Angle2.Location = new System.Drawing.Point(12, 80);
-            this.Label_Angle2.Name = "Label_Angle2";
-            this.Label_Angle2.Size = new System.Drawing.Size(126, 13);
-            this.Label_Angle2.TabIndex = 8;
-            this.Label_Angle2.Text = "20 deg";
-            this.Label_Angle2.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 13);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "Wychylenie do odbicia (δ):";
             // 
             // ZigZagConfig
             // 
@@ -171,9 +171,9 @@
             this.Text = "Ustawienia próby";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Trackbar_Angle2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Trackbar_Count)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Trackbar_Angle)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Trackbar_Angle2)).EndInit();
             this.ResumeLayout(false);
 
         }

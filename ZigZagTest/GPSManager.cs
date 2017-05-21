@@ -67,12 +67,12 @@ namespace ZigZagTest
         public string GetLogString(DateTime FirstEntry, int Index)
         {
             TimeSpan Daytime = (FirstEntry.AddSeconds(Index)).TimeOfDay;
-            string CurrentTime = Daytime.Hours + ":" + Daytime.Minutes + ":" + Daytime.Seconds;
+            string CurrentTime = Daytime.Hours.ToString("00") + ":" + Daytime.Minutes.ToString("00") + ":" + Daytime.Seconds.ToString("00");
             string Lat = (Latitude  >= 0) ? Latitude.ToString("0.00000")  + "N" : Latitude.ToString("0.00000")  + "S";
             string Lon = (Longitude >= 0) ? Longitude.ToString("0.00000") + "E" : Longitude.ToString("0.00000") + "W";
-            string Spd = SOG.ToString("0.0") + " kn";
-            string Crs = COG.ToString("0.0") + " deg";
-            return "[" + CurrentTime + "] " + Lat + " " + Lon + " " + Crs + " " + Spd;
+            string Spd = SOG.ToString("0.0") + "deg";
+            string Crs = COG.ToString("0.0") + "kn";
+            return "[" + CurrentTime + "]  " + Lat + "  " + Lon + "  " + Crs + "  " + Spd;
         }
     }
 
@@ -88,11 +88,11 @@ namespace ZigZagTest
             CurrentState = new GPSData();
             DataSnapshots = new List<GPSData>();
             FirstRecord = DateTime.UtcNow;
-            NMEAParser.OnLocationUpdated = new UpdateLocation(CurrentState.UpdateLocation);
-            NMEAParser.OnCourseUpdated = new UpdateCOG(CurrentState.UpdateSpeed);
-            NMEAParser.OnSpeedUpdated = new UpdateSOG(CurrentState.UpdateCourse);
-            NMEAParser.OnHeadingUpdated = new UpdateHDT(CurrentState.UpdateHeading);
-            NMEAParser.OnSatelliteUpdated = new UpdateSat(CurrentState.UpdateSateliteCount);
+            NMEAParser.OnLocationUpdated += new UpdateLocation(CurrentState.UpdateLocation);
+            NMEAParser.OnCourseUpdated += new UpdateCOG(CurrentState.UpdateSpeed);
+            NMEAParser.OnSpeedUpdated += new UpdateSOG(CurrentState.UpdateCourse);
+            NMEAParser.OnHeadingUpdated += new UpdateHDT(CurrentState.UpdateHeading);
+            NMEAParser.OnSatelliteUpdated += new UpdateSat(CurrentState.UpdateSateliteCount);
 
             Tick = new Timer();
             Tick.Interval = 1000;

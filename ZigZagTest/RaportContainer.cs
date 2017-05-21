@@ -25,32 +25,32 @@ namespace ZigZagTest
 
         public string GenerateRaport()
         {
-            string Raport = "Raport próby wężowej\n\n\n";
+            string Raport = "RAPORT PRÓBY WĘŻOWEJ\r\n\r\n\r\n";
             Raport += "Próba została przeprowadzona " + StartTime.ToString()
-                    + ". Wykonano " + TryCount.ToString() + "manewrów, dla których"
-                    + " nastawa steru wynosiła " + RudderAngle.ToString() + " stopni, a statek "
-                    + "wychylał się o kąt " + TurnAngle.ToString() + " stopni (względnem dna)."
-                    + "\n\n Czasy odbić:\n\nOdbicie\tDorównanie\n\n";
+                    + ". Wykonano " + TryCount.ToString() + " manewrów,\r\ndla których docelowa"
+                    + " nastawa steru wynosiła " + RudderAngle.ToString() + " stopni, a statek przed dokonaniem\r\nmanewru odbicia "
+                    + "miał wychylić się o kąt " + TurnAngle.ToString() + " stopni (względnem dna)."
+                    + "\r\n\r\nCzasy odbić:\r\n\r\nOdbicie\t\tDorównanie\r\n\r\n";
 
-            for(int i = 0; i < TryCount / 2; i++)
+            for(int i = 0; i < TryCount; i++)
             {
-                Raport += Times[2 * i].ToString() + "\t" + Times[2 * i + 1].ToString() + "\n";
+                Raport += Times[2 * i].ToString(@"h\:mm\:ss\.f") + "\t" + Times[2 * i + 1].ToString(@"h\:mm\:ss\.f") + "\r\n";
             }
 
-            Raport += "Zmiany pozycji GPS:\n\n";
+            Raport += "\r\n\r\nZmiany pozycji GPS:\r\n\r\n";
 
             DateTime FirstRecord = AppGlobals.CurrentGPSManager.GetFirstRecord();
             int j = 0;
             
             foreach (GPSData Data in DataSnapshots)
             {
-                Raport += Data.GetLogString(FirstRecord, j);
+                Raport += Data.GetLogString(FirstRecord, j) + "\r\n";
                 j++;
             }
 
-            Raport += "\n\nOtrzymane komunikaty NMEA0183:\n\n";
+            Raport += "\r\n\r\nOtrzymane komunikaty NMEA0183:\r\n\r\n";
 
-            foreach (string Line in DataReceiver.GetLineHistory(-1)) Raport += Line + "\n";
+            foreach (string Line in DataReceiver.GetLineHistory(-1)) Raport += Line + "\r\n";
 
             return Raport;
         }
