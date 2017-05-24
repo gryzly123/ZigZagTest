@@ -13,7 +13,6 @@ namespace ZigZagTest
     {
         private static bool Debug_UseFracDegrees = true;
 
-        public const float EMPTY = -999999.0f;
         public static UpdateLocation OnLocationUpdated;
         public static UpdateCOG OnCourseUpdated;
         public static UpdateSOG OnSpeedUpdated;

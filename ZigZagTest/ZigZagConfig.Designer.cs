@@ -58,14 +58,14 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(13, 13);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(270, 174);
+            this.groupBox1.Size = new System.Drawing.Size(302, 174);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Ustawienia próby";
             // 
             // Label_Angle2
             // 
-            this.Label_Angle2.Location = new System.Drawing.Point(12, 80);
+            this.Label_Angle2.Location = new System.Drawing.Point(40, 83);
             this.Label_Angle2.Name = "Label_Angle2";
             this.Label_Angle2.Size = new System.Drawing.Size(126, 13);
             this.Label_Angle2.TabIndex = 8;
@@ -75,46 +75,47 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 67);
+            this.label4.Location = new System.Drawing.Point(10, 70);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 13);
+            this.label4.Size = new System.Drawing.Size(156, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Kąt względem dna (δ):";
+            this.label4.Text = "Docelowe odchylenie kąta (δs):";
             // 
             // Trackbar_Angle2
             // 
-            this.Trackbar_Angle2.Location = new System.Drawing.Point(144, 67);
+            this.Trackbar_Angle2.Location = new System.Drawing.Point(172, 70);
             this.Trackbar_Angle2.Maximum = 7;
-            this.Trackbar_Angle2.Minimum = 4;
+            this.Trackbar_Angle2.Minimum = 1;
             this.Trackbar_Angle2.Name = "Trackbar_Angle2";
             this.Trackbar_Angle2.Size = new System.Drawing.Size(120, 45);
             this.Trackbar_Angle2.TabIndex = 6;
-            this.Trackbar_Angle2.Value = 7;
+            this.Trackbar_Angle2.Value = 4;
             this.Trackbar_Angle2.Scroll += new System.EventHandler(this.Trackbar_Scroll);
             // 
             // Label_Count
             // 
-            this.Label_Count.Location = new System.Drawing.Point(12, 131);
+            this.Label_Count.Location = new System.Drawing.Point(40, 134);
             this.Label_Count.Name = "Label_Count";
             this.Label_Count.Size = new System.Drawing.Size(126, 13);
             this.Label_Count.TabIndex = 5;
-            this.Label_Count.Text = "5";
+            this.Label_Count.Text = "3";
             this.Label_Count.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Trackbar_Count
             // 
-            this.Trackbar_Count.Location = new System.Drawing.Point(144, 118);
+            this.Trackbar_Count.Location = new System.Drawing.Point(172, 121);
+            this.Trackbar_Count.Maximum = 9;
             this.Trackbar_Count.Minimum = 3;
             this.Trackbar_Count.Name = "Trackbar_Count";
             this.Trackbar_Count.Size = new System.Drawing.Size(120, 45);
             this.Trackbar_Count.TabIndex = 4;
-            this.Trackbar_Count.Value = 5;
+            this.Trackbar_Count.Value = 3;
             this.Trackbar_Count.Scroll += new System.EventHandler(this.Trackbar_Scroll);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(53, 118);
+            this.label3.Location = new System.Drawing.Point(76, 121);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 3;
@@ -122,7 +123,7 @@
             // 
             // Label_Angle
             // 
-            this.Label_Angle.Location = new System.Drawing.Point(12, 29);
+            this.Label_Angle.Location = new System.Drawing.Point(40, 32);
             this.Label_Angle.Name = "Label_Angle";
             this.Label_Angle.Size = new System.Drawing.Size(126, 13);
             this.Label_Angle.TabIndex = 2;
@@ -131,8 +132,8 @@
             // 
             // Trackbar_Angle
             // 
-            this.Trackbar_Angle.Location = new System.Drawing.Point(144, 16);
-            this.Trackbar_Angle.Maximum = 4;
+            this.Trackbar_Angle.Location = new System.Drawing.Point(172, 19);
+            this.Trackbar_Angle.Maximum = 7;
             this.Trackbar_Angle.Minimum = 1;
             this.Trackbar_Angle.Name = "Trackbar_Angle";
             this.Trackbar_Angle.Size = new System.Drawing.Size(120, 45);
@@ -143,17 +144,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(42, 16);
+            this.label1.Location = new System.Drawing.Point(48, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 13);
+            this.label1.Size = new System.Drawing.Size(118, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Kąt ustalania steru:";
+            this.label1.Text = "Kąt ustalania steru (δ0):";
             // 
             // Button_Start
             // 
             this.Button_Start.Location = new System.Drawing.Point(12, 193);
             this.Button_Start.Name = "Button_Start";
-            this.Button_Start.Size = new System.Drawing.Size(271, 23);
+            this.Button_Start.Size = new System.Drawing.Size(303, 23);
             this.Button_Start.TabIndex = 1;
             this.Button_Start.Text = "Rozpocznij";
             this.Button_Start.UseVisualStyleBackColor = true;
@@ -163,7 +164,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(295, 228);
+            this.ClientSize = new System.Drawing.Size(328, 228);
             this.Controls.Add(this.Button_Start);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;

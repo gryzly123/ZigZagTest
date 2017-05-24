@@ -103,23 +103,23 @@ namespace ZigZagTest
         {
             string Message = "";
 
-            if (CurrentTry == 0 && NewState == State.TurningLeft) Message = "Nastaw ster na " + TargetRudder.ToString() + " stopni w lewo!";
+            if (CurrentTry == 0 && NewState == State.TurningLeft) Message = "Nastaw ster na " + TargetRudder.ToString() + " stopni na lewą burtę!";
             else switch(NewState)
             {
                 case State.TurningLeft:
-                    Message = "Czekaj";
+                    Message = "Czekaj... (Kąt względny musi dojść do -" + TargetCOG.ToString("00") + " stopni.)";
                     break;
 
                 case State.TurningRight:
-                    Message = "Czekaj";
+                    Message = "Czekaj... (Kąt względny musi dojść do +" + TargetCOG.ToString("00") + " stopni.)";
                     break;
 
                 case State.RevertingLeft:
-                    Message = "Odbij ster na " + TargetRudder.ToString() + " stopni w prawo!";
+                    Message = "Przełóż ster " + TargetRudder.ToString() + " stopni na prawą burtę!";
                     break;
 
                 case State.RevertingRight:
-                    Message = "Odbij ster na " + TargetRudder.ToString() + " stopni w lewo!";
+                    Message = "Przełóż ster " + TargetRudder.ToString() + " stopni na lewą burtę!";
                     break;
 
                 case State.Finished:
