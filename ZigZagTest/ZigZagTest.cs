@@ -107,11 +107,11 @@ namespace ZigZagTest
             else switch(NewState)
             {
                 case State.TurningLeft:
-                    Message = "Czekaj... (Kąt względny musi dojść do -" + TargetCOG.ToString("00") + " stopni.)";
+                    Message = "Czekaj... (Kąt względny musi dojść do -" + TargetCOG.ToString("00") + " stopni)";
                     break;
 
                 case State.TurningRight:
-                    Message = "Czekaj... (Kąt względny musi dojść do +" + TargetCOG.ToString("00") + " stopni.)";
+                    Message = "Czekaj... (Kąt względny musi dojść do +" + TargetCOG.ToString("00") + " stopni)";
                     break;
 
                 case State.RevertingLeft:

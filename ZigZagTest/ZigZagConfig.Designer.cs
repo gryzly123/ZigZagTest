@@ -115,11 +115,11 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(76, 121);
+            this.label3.Location = new System.Drawing.Point(43, 121);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.Size = new System.Drawing.Size(123, 13);
             this.label3.TabIndex = 3;
-            this.label3.Text = "Ilość prób (odbić):";
+            this.label3.Text = "Ilość przełożeń steru (n):";
             // 
             // Label_Angle
             // 
