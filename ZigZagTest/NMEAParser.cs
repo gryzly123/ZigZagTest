@@ -149,7 +149,7 @@ namespace ZigZagTest
             int Minute = Whole % 100;
 
             float TotalMinute = Convert.ToSingle(Minute) + Frac;
-            float TotalPos = Convert.ToSingle(Whole) + (TotalMinute / 60);
+            float TotalPos = Convert.ToSingle(Whole) + (TotalMinute / 60.0f);
 
             return TotalPos;
         }
