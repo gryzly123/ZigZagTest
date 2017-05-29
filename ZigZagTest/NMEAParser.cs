@@ -11,7 +11,7 @@ namespace ZigZagTest
 
     public static class NMEAParser
     {
-        private static bool Debug_UseFracDegrees = true;
+        private static bool Debug_UseFracDegrees = false;
 
         public static UpdateLocation OnLocationUpdated;
         public static UpdateCOG OnCourseUpdated;
@@ -35,8 +35,6 @@ namespace ZigZagTest
                     case "GSV": GSV(SplitLine); break;
                     case "HDT": HDT(SplitLine); break;
                     case "VTG": VTG(SplitLine); break;
-                        
-                    //default: MessageBox.Show("Invalid case: " + SplitLine[0]); break;
                 }
             }
         }
